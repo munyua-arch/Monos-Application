@@ -443,4 +443,55 @@ class Admindashboard extends BaseController
         return redirect()->to(base_url().'admindashboard/admins');
     }
 
+    public function changePassword()
+    {
+            $data = [];
+            $data['userdata'] = $this->createAdmin->getLoggedUserData(session()->get('logged_user'));
+        
+        
+        $rules = [
+            'old_password' => 'required',
+            'new_password' => 'required|min_length[5]|max_length[20]',
+            'confirm_password' => 'required|matches[new_password]'
+        ];
+
+        if ($this->request->is('post')) 
+        {
+            if ($this->validate($rules)) 
+            {
+                // Get user input
+                $old_password = $this->request->getPost('old_password');
+                $new_password = $this->request->getPost('new_password');
+
+                
+
+                // Verify old password
+                if (password_verify($old_password, $data['userdata']['password'])) {
+                    // Hash the new password before storing it in the database
+                    $hashed_new_password = password_hash($new_password, PASSWORD_BCRYPT);
+
+                    // Update the password in the database
+                    if ($this->createAdmin->updatePassword($data['userdata']['uniid'], $hashed_new_password)) 
+                    {
+                        session()->setTempdata('password_success', 'Password changed successfully');
+                        return redirect()->to(current_url());
+                    }
+                    else
+                    {
+                        session()->setTempdata('password_error', 'Failed to change password, please try again!');
+                    }
+                }
+                else
+                {
+                    session()->setTempdata('password_error', 'Old password is incorrect!');
+                }
+            }
+            else
+            {
+                $data['validation'] = $this->validator;
+            }
+        }
+            return view('admin_changepassword_view', $data);
+    }
+
 }

@@ -49,13 +49,6 @@ if (isset($userdata) && !empty($userdata)) {
 						<div
 							class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
 						>
-							<a class="dropdown-item" href="<?= base_url().'dashboard/profile/'?>"
-								><i class="dw dw-user1"></i> Profile</a
-							>
-							
-							<a class="dropdown-item" href="<?= base_url().'dashboard/support'?>"
-								><i class="dw dw-help"></i> Help</a
-							>
 							<a class="dropdown-item" href="<?= base_url().'dashboard/logout';?>"
 								><i class="dw dw-logout"></i> Log Out</a
 							>

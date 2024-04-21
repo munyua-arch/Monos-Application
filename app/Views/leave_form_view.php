@@ -39,11 +39,12 @@ $page_session = \CodeIgniter\Config\Services::session();
 						</div>
 
                         <!-- Display invalid form errors -->
-                        <div class="alert alert-danger">
+                        
                                 <?php if(isset($validation)):?>
-                                    <?= $validation->listErrors(); ?>
+                                    <div class="alert alert-danger">
+                                        <?= $validation->listErrors(); ?>
+                                    </div>
                                 <?php endif;?>
-                            </div>
                         <!-- Display invalid form errors -->
                                     
                     <?php if($page_session->setTempdata('request_success')):?>

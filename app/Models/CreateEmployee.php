@@ -48,4 +48,37 @@ class CreateEmployee extends Model
  
  
      }
+
+    public function getLoggedUserData($id)
+    {
+        $builder = $this->db->table('employees');
+        $builder->where('uniid', $id);
+        $result = $builder->get();
+
+        if (count($result->getResultArray()) == 1)
+        {
+                return $result->getRowArray();
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
+    public function updatePassword($id , $new_password)
+    {
+        $builder = $this->db->table('employees');
+        $builder->where('uniid', $id);
+        
+        // Execute the update query
+        $builder->update(['password' => $new_password]);
+    
+        // Check the affected rows
+        if ($this->db->affectedRows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

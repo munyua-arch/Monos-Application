@@ -2,15 +2,16 @@
 
 namespace App\Controllers;
 use App\Models\RequestModel;
+use App\Models\CreateEmployee;
 
 class Dashboard extends BaseController
 {
-    public $requestModel;
+    public $createEmployee;
 
     public function __construct()
     {
         helper(['form']);
-        $this->requestModel = new RequestModel();
+        $this->createEmployee = new CreateEmployee();
     }
 
     public function index()
@@ -70,6 +71,58 @@ class Dashboard extends BaseController
     public function leaveHistory()
     {
         return view('history_view');
+    }
+
+    public function changeadminPassword()
+    {
+            $data = [];
+            $data['userdata'] = $this->createEmployee->getLoggedUserData(session()->get('logged_user'));
+        
+        
+        $rules = [
+            'old_password' => 'required',
+            'new_password' => 'required|min_length[5]|max_length[20]',
+            'confirm_password' => 'required|matches[new_password]'
+        ];
+
+        if ($this->request->is('post')) 
+        {
+            if ($this->validate($rules)) 
+            {
+                // Get user input
+                $old_password = $this->request->getPost('old_password');
+                $new_password = $this->request->getPost('new_password');
+
+                echo $old_password;
+                echo $new_password;
+
+                // // Verify old password
+                // if (password_verify($old_password, $data['userdata']['password'])) {
+                //     // Hash the new password before storing it in the database
+                //     $hashed_new_password = password_hash($new_password, PASSWORD_BCRYPT);
+
+                //     // Update the password in the database
+                //     if ($this->createEmployee->updatePassword($data['userdata']['uniid'], $hashed_new_password)) 
+                //     {
+                //         session()->setTempdata('password_success', 'Password changed successfully');
+                //         return redirect()->to(current_url());
+                //     }
+                //     else
+                //     {
+                //         session()->setTempdata('password_error', 'Failed to change password, please try again!');
+                //     }
+                // }
+                // else
+                // {
+                //     session()->setTempdata('error', 'Current password is incorrect!', 3);
+                // }
+            }
+            else
+            {
+                $data['validation'] = $this->validator;
+            }
+        }
+            return view('employee_changepassword_view', $data);
     }
 
     public function logout()

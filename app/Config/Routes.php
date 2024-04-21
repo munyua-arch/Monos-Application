@@ -25,6 +25,9 @@ $routes->post('dashboard/leave', 'Dashboard::leaveForm');
 //leave history
 $routes->get('dashboard/history', 'Dashboard::leaveHistory');
 
+$routes->get('dashboard/change-password', 'Dashboard::changePassword');
+$routes->post('dashboard/change-password', 'Dashboard::changePassword');
+
 $routes->get('dashboard/logout', 'Dashboard::logout');
 
 
@@ -72,6 +75,9 @@ $routes->post('admindashboard/admins', 'Admindashboard::Admin');
 
 $routes->get('admindashboard/new-admin', 'Admindashboard::newAdmin');
 $routes->post('admindashboard/new-admin', 'Admindashboard::newAdmin');
+
+$routes->get('admindashboard/admin-change-password', 'Admindashboard::changePassword');
+$routes->post('admindashboard/admin-change-password', 'Admindashboard::changePassword');
 
 $routes->get('admindashboard/logout', 'Admindashboard::logout');
 
