@@ -32,7 +32,7 @@ $page_session = \CodeIgniter\Config\Services::session();
                     <div class="input-group custom">
                         <input type="email" name="email" placeholder="Email" class="form-control" value="<?= set_value('email')?>">
                         <div class="input-group-append custom">
-							<span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
+							<span class="input-group-text"><i class="icon-copy dw dw-email-1"></i></span>
 						</div>
                     </div>
                     <div class="input-group custom">
@@ -50,7 +50,7 @@ $page_session = \CodeIgniter\Config\Services::session();
 									</div>
 									<div class="col-6">
 										<div class="forgot-password">
-											<a href="forgot-password.html">Forgot Password</a>
+											<a href="<?= base_url().'login/forgot-password'?>">Forgot Password</a>
 										</div>
 									</div>
 								</div>

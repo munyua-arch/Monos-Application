@@ -1,3 +1,8 @@
+<?php 
+
+$page_session = \CodeIgniter\Config\Services::session();
+?>
+
 <?= $this->extend('backend/admin-layouts'); ?>
 <?= $this->section('content'); ?>
 
@@ -21,6 +26,34 @@
 							</div>
 						</div>
 					</div>
+
+                    <?php if($page_session->has('approve_success')): ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= $page_session->get('approve_success') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        <?php endif;?>
+
+                        <?php if($page_session->has('approve_error')): ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <?= $page_session->get('approve_error') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        <?php endif;?>
+
+                        <?php if($page_session->has('decline_success')): ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= $page_session->get('decline_success') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        <?php endif;?>
+
+                        <?php if($page_session->has('decline_error')): ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <?= $page_session->get('decline_error') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        <?php endif;?>
 
 					<div class="card">
                             <div class="card-body">
@@ -47,7 +80,7 @@
 
                                           <tr>
                                              <td ><b>Employee Email:</b></td>
-                                            <td colspan="1">email.com</td>
+                                            <td colspan="1"><?= $leave['email']?></td>
                                              <td ><b>Employee Contact:</b></td>
                                             <td colspan="1">1234567890</td>
 
@@ -143,8 +176,9 @@
                                     <?= form_open() ?>
 
                                     <?php if(isset($validation)): ?>
-                                        <div class="alert alert-danger">
+                                        <div class="alert alert-danger alert-dismissble fade show" role="alert">
                                             <?= $validation->listErrors() ?>
+                                            <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
                                         </div>
                                     <?php endif;?>
 
@@ -156,7 +190,7 @@
                                             <option value="Declined">Decline</option>
                                         </select></p>
                                         <br>
-                                        <p><textarea id="textarea1" name="description" class="form-control" name="description" placeholder="Description" row="5" maxlength="500" required></textarea></p>
+                                        <p><textarea id="textarea1" name="admin_remark" class="form-control" name="admin_remark" placeholder="Description" row="5" maxlength="500"></textarea></p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

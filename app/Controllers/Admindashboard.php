@@ -6,6 +6,9 @@ use App\Models\DepartmentModel;
 use App\Models\LeaveModel;
 use App\Models\RequestModel;
 use App\Models\CreateAdmin;
+use App\Models\UserdashModel;
+use App\Models\ApprovedModel;
+use App\Models\DeclinedModel;
 use CodeIgniter\I18n\Time;
 
 
@@ -16,6 +19,8 @@ class Admindashboard extends BaseController
     public $leaveModel;
     public $requestModel;
     public $createAdmin;
+    public $approvedModel;
+    public $declinedModel;
 
     public function __construct()
     {
@@ -25,6 +30,9 @@ class Admindashboard extends BaseController
         $this->leaveModel = new LeaveModel();
         $this->requestModel = new RequestModel();
         $this->createAdmin = new CreateAdmin();
+        $this->approvedModel = new ApprovedModel();
+        $this->declinedModel = new DeclinedModel();
+        $this->email = \Config\Services::email();
     }
 
     public function index()
@@ -34,11 +42,16 @@ class Admindashboard extends BaseController
         $data['totalDept'] = $this->departmentModel->getTotal();
         $data['totalLeave'] = $this->leaveModel->getTotal();
         $data['totalRequests'] = $this->requestModel->getTotal();
+        $data['totalDeclined'] = $this->declinedModel->getTotal();
+        $data['totalApproved'] = $this->approvedModel->getTotal();
 
         if (!session()->has('logged_user')) 
         {
             return redirect()->to(base_url().'admin-login');
         }
+
+        // Get unread leaves
+        $data['unreadLeaves'] = $this->requestModel->getUnreadLeaves();
 
         return view('admindashboard_view', $data);
     }
@@ -191,7 +204,7 @@ class Admindashboard extends BaseController
 
         $rules = [
                 'leave_type' => 'required',
-                'description' => 'required|max_length[255]',
+                'admin_remark' => 'required|max_length[255]',
       
         ];
 
@@ -202,7 +215,7 @@ class Admindashboard extends BaseController
                     //get form data and save to db
                     $leaveData = [
                         'leave_type' => $this->request->getPost('leave_type', FILTER_SANITIZE_STRING),
-                        'description' => $this->request->getPost('description', FILTER_SANITIZE_STRING),
+                        'admin_remark' => $this->request->getPost('admin_remark', FILTER_SANITIZE_STRING),
                     ];
 
                 if ($this->leaveModel->save($leaveData)) 
@@ -233,11 +246,18 @@ class Admindashboard extends BaseController
 
     public function approved()
     {
-        return view('approved_view');
+        $data['approved'] = $this->approvedModel->paginate(10);
+        $data['pager'] = $this->approvedModel->pager;
+
+        return view('approved_view', $data);
     }
     public function declined()
     {
-        return view('declined_view');
+        $data['declined'] = $this->declinedModel->paginate(10);
+        $data['pager'] = $this->declinedModel->pager;
+
+        
+        return view('declined_view', $data);
     }
 
     public function leaveHistory()
@@ -254,14 +274,83 @@ class Admindashboard extends BaseController
 
         $rules = [
             'status' => 'required',
-            'description' => 'required|max_length[100]'
+            'admin_remark' => 'required|max_length[100]'
         ];
 
         if ($this->request->is('post')) 
         {
             if ($this->validate($rules)) 
             {
-                echo 'form approved';
+                $modalData = [
+                    'status' => $this->request->getPost('status', FILTER_SANITIZE_STRING),
+                    'admin_remark' => $this->request->getPost('admin_remark', FILTER_SANITIZE_STRING),
+                ];
+
+                $this->requestModel->update(
+                    $id, ['status' => $modalData['status'],
+                        'admin_remark' => $modalData['admin_remark']
+                    ]
+            );
+               
+
+                if ($modalData['status'] === 'Approved' || $modalData['status'] === 'Declined') 
+                {
+                    //update the leave to read
+                    $this->requestModel->update($id, ['isRead' => 1]);
+
+                    if ($modalData['status'] === 'Approved') 
+                    {
+                        // move to approved table
+                        $this->requestModel->moveApproved($id);
+
+                        //send an email 
+                        $to =  $data['leave']['email'];
+                        $subject = "Leave Status Notification";
+                        $message = 'Dear ' . $data['leave']['name'] . ",<br><br>"
+                        . "I am writing to inform you about the status of your recent leave request.<br><br>"
+                        . " After careful consideration,  I'm pleased to inform you that your leave request has been approved";
+                        
+                        $this->email->setTo($to);
+                        $this->email->setFrom('dmurimi919@gmail.com', 'Dennis');
+                        $this->email->setSubject($subject);
+                        $this->email->setMessage($message);
+
+                        if ($this->email->send()) 
+                        {
+                            session()->setTempdata('approve_success', 'An approved email  has been sent to the leave applicant');
+                        }
+                        else {
+                            session()->setTempdata('approve_error', 'Failed to send an email to the leave applicant');
+                        }
+                    }
+                    elseif ($modalData['status'] === 'Declined') 
+                    {
+                        // move to declined table
+                        $this->requestModel->moveDeclined($id);
+
+                        //send an email 
+                        $to =  $data['leave']['email'];
+                        $subject = "Leave Status Notification";
+                        $message = 'Dear ' . $data['leave']['name'] . ",<br><br>"
+                        . "I am writing to inform you about the status of your recent leave request.<br><br>"
+                        . " After careful consideration, I regret to inform you that your leave request has been rejected";
+                        
+                        $this->email->setTo($to);
+                        $this->email->setFrom('dmurimi919@gmail.com', 'Dennis');
+                        $this->email->setSubject($subject);
+                        $this->email->setMessage($message);
+
+                        if ($this->email->send()) 
+                        {
+                            session()->setTempdata('decline_success', 'An declined email request has been sent to the leave applicant');
+                        }
+                        else {
+                            session()->setTempdata('decline_error', 'Failed to send an email to the leave applicant');
+                        }
+                    }
+                }
+                
+
             }
             else
             {

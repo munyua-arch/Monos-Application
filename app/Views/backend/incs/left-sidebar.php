@@ -13,6 +13,12 @@
 				<div class="sidebar-menu">
 					<ul id="accordion-menu">
 						<li>
+							<a href="<?= base_url().'dashboard/'?>" class="dropdown-toggle no-arrow">
+								<span class="micon bi bi-file"></span>
+								<span class="mtext">Dashboard</span>
+							</a>
+						</li>
+						<li>
 							<a href="<?= base_url().'dashboard/leave'?>" class="dropdown-toggle no-arrow">
 								<span class="micon bi bi-file"></span>
 								<span class="mtext">Leave Application</span>

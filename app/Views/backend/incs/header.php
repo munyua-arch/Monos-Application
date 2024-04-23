@@ -33,7 +33,7 @@ if (isset($userdata) && !empty($userdata)) {
 					</div>
 				</div>
 			
-				<div class="user-info-dropdown">
+				<div class="user-info-dropdown mt-2">
 					<div class="dropdown">
 						<a
 							class="dropdown-toggle"
@@ -41,10 +41,8 @@ if (isset($userdata) && !empty($userdata)) {
 							role="button"
 							data-toggle="dropdown"
 						>
-							<span class="user-icon">
-								<i class="bi bi-person-circle"></i>
-							</span>
-							<span class="user-name"><?= $username?></span>
+							<img src="public/backend/vendors/images/person.svg" alt="">
+							<span class="user-name mt-2"></span>
 						</a>
 						<div
 							class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"

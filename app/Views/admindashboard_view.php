@@ -1,7 +1,8 @@
 <?= $this->extend('backend/admin-layouts'); ?>
 <?= $this->section('content'); ?>
 
-   <div class="main-container">
+
+   <div>
 			<div class="xs-pd-20-10 pd-ltr-20">
 				<div class="title pb-20">
 					<h2 class="h3 mb-0">Leave System Overview</h2>
@@ -60,6 +61,7 @@
 						</div>
 					</div>
 			
+					
 
 				</div>
 
@@ -84,7 +86,7 @@
 							<div class="card-box height-100-p widget-style3">
 								<div class="d-flex flex-wrap">
 									<div class="widget-data">
-										<div class="weight-700 font-24 text-dark">2</div>
+										<div class="weight-700 font-24 text-dark"><?= $totalDeclined?></div>
 										<div class="font-14 text-secondary weight-500">Declined Applications</div>
 									</div>
 									<div class="widget-icon">
@@ -99,7 +101,7 @@
 							<div class="card-box height-100-p widget-style3">
 								<div class="d-flex flex-wrap">
 									<div class="widget-data">
-										<div class="weight-700 font-24 text-dark">12</div>
+										<div class="weight-700 font-24 text-dark"><?= $totalApproved?></div>
 										<div class="font-14 text-secondary weight-500">Approved</div>
 									</div>
 									<div class="widget-icon">

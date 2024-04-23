@@ -6,13 +6,34 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
-$routes->post('/', 'Home::index');
+$routes->post('/', 'Home::index'); 
+
+// //404 override
+// // Would execute the show404 method of the App\Errors class
+// $routes->set404Override('App\Errors::show404');
+
+// // Will display a custom view
+// $routes->set404Override(static function () {
+//     echo view('errors/custom_errors');
+// });
 
 $routes->get('admin-login', 'Home::adminLogin');
 $routes->post('admin-login', 'Home::adminLogin');
 
+$routes->get('admin-login/forgot-password', 'Home::adminforgotPassword');
+$routes->post('admin-login/forgot-password', 'Home::adminforgotPassword');
+
+$routes->get('admin-login/reset-password/(:any)', 'Home::adminresetPassword/$1');
+$routes->post('admin-login/reset-password/(:any)', 'Home::adminresetPassword/$1');
+
 $routes->get('login', 'Home::login');
 $routes->post('login', 'Home::login');
+
+$routes->get('login/forgot-password', 'Home::forgotPassword');
+$routes->post('login/forgot-password', 'Home::forgotPassword');
+
+$routes->get('login/reset-password/(:any)', 'Home::resetPassword/$1');
+$routes->post('login/reset-password/(:any)', 'Home::resetPassword/$1');
 
 
 

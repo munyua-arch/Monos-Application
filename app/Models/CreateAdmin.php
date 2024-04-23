@@ -80,4 +80,41 @@ class CreateAdmin extends Model
             return false;
         }
     }
+
+    public function updatedAt($id)
+    {
+          $builder = $this->db->table('admin');
+          $builder->where('uniid', $id);
+          $builder->update(['updated_at' => date('Y-m-d h:i:s')]);
+
+          if($this->db->affectedRows() == 1)
+          {
+              return true;
+          }
+          else
+          {
+              return false;
+          }
+    }
+
+    public function verifyToken($token)
+    {
+        $builder = $this->db->table('employees');
+        $builder->select(['first_name', 'uniid', 'updated_at']);
+        $builder->where('uniid', $token);
+        
+        $result = $builder->get();
+
+
+        if (count($result->getResultArray()) == 1)
+
+        {
+            return $result->getRowArray();
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
 }

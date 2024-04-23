@@ -65,6 +65,10 @@ $page_session = \CodeIgniter\Config\Services::session();
                                 <input type="text" class="form-control" name="name" value="<?= set_value('name')?>">
                             </div>
                             <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" name="email" value="<?= set_value('email')?>">
+                            </div>
+                            <div class="form-group">
                                 <label>Start Date</label>
                                 <input type="date" class="form-control" name="start_date" value="<?= set_value('start_date')?>">
                             </div>

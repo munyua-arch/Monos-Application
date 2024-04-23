@@ -3,15 +3,20 @@
 namespace App\Controllers;
 use App\Models\RequestModel;
 use App\Models\CreateEmployee;
+use App\Models\UserdashModel;
 
 class Dashboard extends BaseController
 {
     public $createEmployee;
+    public $userModel;
+    public $requestModel;
 
     public function __construct()
     {
         helper(['form']);
         $this->createEmployee = new CreateEmployee();
+        $this->userModel = new UserdashModel();
+        $this->requestModel = new RequestModel();
     }
 
     public function index()
@@ -21,7 +26,21 @@ class Dashboard extends BaseController
             return redirect()->to(base_url().'login/');
         }
 
-        return view('employeedash_view');
+
+        $uniid = session()->get('logged_user');
+
+        
+        $data = [];
+        $data['totalLeaves'] = "21 Days";
+        $data['userdata'] = $this->userModel->getLoggedUserData($uniid);
+
+        if (!$data['userdata'] == null) {
+            return view('employeedash_view', $data);
+        }else {
+            return "User data not found";
+        }
+
+        
     }
 
     public function leaveForm()
@@ -31,6 +50,7 @@ class Dashboard extends BaseController
 
         $rules = [
             'name' => 'required',
+            'email' => 'required|valid_email',
             'start_date' => 'required',
             'end_date' => 'required',
             'leave_type' => 'required',
@@ -43,6 +63,7 @@ class Dashboard extends BaseController
             {
                 $requestData = [
                     'name' => $this->request->getPost('name', FILTER_SANITIZE_STRING),
+                    'email' => $this->request->getPost('email', FILTER_SANITIZE_STRING),
                     'start_date' => $this->request->getPost('start_date', FILTER_SANITIZE_STRING),
                     'end_date' => $this->request->getPost('end_date', FILTER_SANITIZE_STRING),
                     'leave_type' => $this->request->getPost('leave_type', FILTER_SANITIZE_STRING),
@@ -73,7 +94,7 @@ class Dashboard extends BaseController
         return view('history_view');
     }
 
-    public function changeadminPassword()
+    public function changePassword()
     {
             $data = [];
             $data['userdata'] = $this->createEmployee->getLoggedUserData(session()->get('logged_user'));
@@ -96,26 +117,26 @@ class Dashboard extends BaseController
                 echo $old_password;
                 echo $new_password;
 
-                // // Verify old password
-                // if (password_verify($old_password, $data['userdata']['password'])) {
-                //     // Hash the new password before storing it in the database
-                //     $hashed_new_password = password_hash($new_password, PASSWORD_BCRYPT);
+                // Verify old password
+                if (password_verify($old_password, $data['userdata']['password'])) {
+                    // Hash the new password before storing it in the database
+                    $hashed_new_password = password_hash($new_password, PASSWORD_BCRYPT);
 
-                //     // Update the password in the database
-                //     if ($this->createEmployee->updatePassword($data['userdata']['uniid'], $hashed_new_password)) 
-                //     {
-                //         session()->setTempdata('password_success', 'Password changed successfully');
-                //         return redirect()->to(current_url());
-                //     }
-                //     else
-                //     {
-                //         session()->setTempdata('password_error', 'Failed to change password, please try again!');
-                //     }
-                // }
-                // else
-                // {
-                //     session()->setTempdata('error', 'Current password is incorrect!', 3);
-                // }
+                    // Update the password in the database
+                    if ($this->createEmployee->updatePassword($data['userdata']['uniid'], $hashed_new_password)) 
+                    {
+                        session()->setTempdata('password_success', 'Password changed successfully');
+                        return redirect()->to(current_url());
+                    }
+                    else
+                    {
+                        session()->setTempdata('password_error', 'Failed to change password, please try again!');
+                    }
+                }
+                else
+                {
+                    session()->setTempdata('error', 'Current password is incorrect!', 3);
+                }
             }
             else
             {
