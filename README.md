@@ -23,7 +23,9 @@ In composer.json file, if ci4 has no current version, update the file
 >      "codeigniter4/framework": "^4.5.0"
 > },
 
-to the version that was committed to github
+to the version that was committed to github.
+
+Import the `leave_mngt.sql` database in your mysql server
 
 ## Usage
 
