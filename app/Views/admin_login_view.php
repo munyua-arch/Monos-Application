@@ -15,8 +15,9 @@ $page_session = \CodeIgniter\Config\Services::session();
 
 
 							<?php if(isset($validation)):?>
-								<div class="alert alert-danger">
+								<div class="alert alert-danger alert-dismissible fade show" role="alert">
 									<?= $validation->listErrors()?>
+									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 								</div>
 							<?php endif;?>
 
@@ -60,7 +61,7 @@ $page_session = \CodeIgniter\Config\Services::session();
 									</div>
 									<div class="col-6">
 										<div class="forgot-password">
-											<a href="<?= base_url().'admin-login/forgot-password'?>">Forgot Password</a>
+											<a href="<?= base_url().'admin-login/admin-forgot-password'?>">Forgot Password</a>
 										</div>
 									</div>
 								</div>

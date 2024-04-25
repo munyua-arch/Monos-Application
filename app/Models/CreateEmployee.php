@@ -9,7 +9,7 @@ class CreateEmployee extends Model
     protected $table            = 'employees';
     protected $primaryKey       = 'id';
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id','first_name', 'last_name', 'email', 'gender', 'phone', 'dob', 'password', 'department', 'uniid'];
+    protected $allowedFields    = ['id','first_name', 'last_name', 'email','employee_id', 'gender', 'phone', 'dob', 'password', 'department', 'uniid'];
 
    
 
@@ -52,6 +52,7 @@ class CreateEmployee extends Model
      public function getLoggedUserData($id)
      {
        $builder = $this->db->table('employees');
+       $builder->select(['first_name', 'last_name', 'email', 'employee_id', 'dob', 'password', 'uniid', 'status']);
        $builder->where('uniid', $id);
        $result = $builder->get();
    

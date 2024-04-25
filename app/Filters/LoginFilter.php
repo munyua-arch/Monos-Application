@@ -6,14 +6,14 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class AdminFilter implements FilterInterface
+class LoginFilter implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
         //restrict if user not logged in
         if (!session()->has('logged_user')) 
         {
-            return redirect()->to(base_url().'admin-login/');
+            return redirect()->to(base_url().'login/');
         }
     }
 

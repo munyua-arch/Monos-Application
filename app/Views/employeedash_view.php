@@ -48,7 +48,12 @@
 						<div class="col-md-8">
 							<h4 class="font-20 weight-500 mb-10 text-capitalize">
 								Welcome back
-                                <div class="weight-600 font-30 text-blue"><?= ucfirst($userdata['first_name']. " ". $userdata['last_name']); ?></div>
+                                <div class="weight-600 font-30 text-blue">
+									<?= ucfirst($userdata['first_name']. " ". $userdata['last_name']); ?>
+
+								</div>
+
+								<h4 class="mb-3 text-primary">Employee ID: <span><?= $userdata['employee_id']?></span> </h4>
 							</h4>
 							<p class="font-18 max-width-600">
 								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde

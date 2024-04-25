@@ -87,7 +87,7 @@ class Home extends BaseController
 
         $rules = [
             'email' => 'required|valid_email',
-            'password' => 'required|min_length[5]|max_length[10]'
+            'password' => 'required|min_length[5]|max_length[20]'
         ];
 
         if ($this->request->is('post'))
@@ -234,7 +234,7 @@ class Home extends BaseController
 
                                 if ($this->createEmployee->updatePassword($userdata['uniid'],$password))
                                 {
-                                    session()->setTempdata('reset_success', 'Password reset successfully');
+                                    session()->setTempdata('reset_success', 'Password reset successfully, go back to login');
                                     // return redirect()->to(base_url().'login/');
                                 }
                                 else
@@ -289,20 +289,20 @@ class Home extends BaseController
                 $email = $this->request->getVar('email', FILTER_SANITIZE_STRING);
                 $userdata = $this->createAdmin->verifyEmail($email);
 
-               
+             
 
                 if (!empty($userdata)) 
                 {
-                    if ($this->createAdmin->updatedAt($userdata['uniid'])) 
+                    if ($this->createAdmin->adminupdatedAt($userdata['uniid'])) 
                     {
                         
                         $to = $email;
-                        $subject = "Reset Password Link";
+                        $subject = "Admin Reset Password Link";
                         $token = $userdata['uniid'];
                         $message = "Hi ".$userdata['full_name']."<br><br>"
                             ."Your reset password request has been received. Please click the link below "
                             ."to reset your password.<br><br>"
-                            ."<a href='".base_url()."/admin-login/reset-password/".$token."'>Reset Password</a>";
+                            ."<a href='".base_url()."admin-login/admin-reset-password/".$token."'>Reset Password</a>";
 
                         $email = \Config\Services::email();
                         $email->setTo($to);
@@ -328,13 +328,13 @@ class Home extends BaseController
                     }
                     else
                     {
-                        session()->setTempdata('adminforgot_error', 'Failed to update', 3);
+                        session()->setTempdata('adminforgot_error', 'Failed to update');
                         return redirect()->to(current_url());
                     }
                 }
                 else
                 {
-                    session()->setTempdata('adminforgot_error', 'Email does not exist', 3);
+                    session()->setTempdata('forgot_error', 'Email does not exist');
                     return redirect()->to(current_url());
                 }
             }
@@ -352,7 +352,7 @@ class Home extends BaseController
     public function adminresetPassword($token=null)
     {
         $data = [];
-       
+
         $rules = [
             'password' => 'required|min_length[5]|max_length[20]',
             'confirm_password' => 'required|matches[password]'
@@ -360,58 +360,57 @@ class Home extends BaseController
 
         if ($this->request->is('post')) 
         {
-            if (!empty($token)) {
-                //verfiy the token 
-                $userdata = $this->createAdmin->verifyToken($token);
-
-                if (!empty($userdata)) 
-                {
-                    if ($userdata['updated_at']) 
+            if ($this->validate($rules)) 
+            {
+                if (!empty($token)) {
+                    //verfiy the token 
+                    $userdata = $this->createAdmin->verifyToken($token);
+                              
+                    
+                    if (!empty($userdata)) 
                     {
-                        //collect form data and change the user password
-                        if ($this->request->is('post')) 
-                        {
-                            if ($this->validate($rules)) 
-                            {
-                                $password = password_hash($this->request->getVar('password'), PASSWORD_BCRYPT);
 
-                                if ($this->createAdmin->updatePassword($userdata['uniid'],$password))
-                                {
-                                    session()->setTempdata('adminreset_success', 'Password reset successfully');
-                                    // return redirect()->to(base_url().'login/');
-                                }
-                                else
-                                {
-                                    session()->setTempdata('adminreset_error', 'Failed to reset Password, please try again!');
-                                    return redirect()->to(current_url());
-                                }
-                            }   
+                        
+                        if ($userdata['updated_at']) 
+                        {
+                            //collect form data and change the user password
+    
+                            $password = password_hash($this->request->getPost('password'), PASSWORD_BCRYPT);
+                            
+                           
+                            if ($this->createAdmin->updatePassword($userdata['uniid'],$password))
+                            {
+                                session()->setTempdata('admin_reset_success', 'Password reset successfully, go back to login');
+                                // return redirect()->to(base_url().'login/');
+                            }
                             else
                             {
-                                $data['validation'] = $this->validator;
-                            } 
+                                session()->setTempdata('admin_reset_error', 'Failed to reset Password, please try again!');
+                                return redirect()->to(current_url());
+                            }
+           
                         }
-                        
-    
+                        else
+                        {
+                            $data['error'] = "Reset password link has expired.";
+                        }
                     }
                     else
                     {
-                        $data['error'] = "Reset password link has expired.";
+                        $data['error'] = "Unable to find your account.";
                     }
+                    
                 }
                 else
                 {
-                    $data['error'] = "Unable to find your account.";
+                    $data['error'] = "Sorry, Invalid Access.";
                 }
-                
             }
-            else
-            {
-                $data['error'] = "Sorry, Invalid Access.";
+            else {
+                $data['validation'] = $this->validator;
             }
         }
-
-
         return view('admin_reset_view', $data);
     }
+    
 }

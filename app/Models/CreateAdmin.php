@@ -9,14 +9,16 @@ class CreateAdmin extends Model
     protected $table            = 'admin';
     protected $primaryKey       = 'id';
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id','name', 'email', 'password', 'uniid'];
+    protected $allowedFields    = ['id','full_name', 'email', 'password', 'uniid', 'updated_at', 'deleted_at', 'created_at'];
 
    
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
+    protected $deletedField  = 'deleted_at';
    
 
 
@@ -81,7 +83,7 @@ class CreateAdmin extends Model
         }
     }
 
-    public function updatedAt($id)
+    public function adminupdatedAt($id)
     {
           $builder = $this->db->table('admin');
           $builder->where('uniid', $id);
@@ -99,8 +101,8 @@ class CreateAdmin extends Model
 
     public function verifyToken($token)
     {
-        $builder = $this->db->table('employees');
-        $builder->select(['first_name', 'uniid', 'updated_at']);
+        $builder = $this->db->table('admin');
+        $builder->select(['full_name', 'uniid', 'updated_at']);
         $builder->where('uniid', $token);
         
         $result = $builder->get();

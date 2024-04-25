@@ -56,6 +56,7 @@ $page_session = \CodeIgniter\Config\Services::session();
 										<th class="table-plus datatable-nosort">#</th>
 										<th>Full Name</th>
 										<th>Email</th>
+										<th>Employee ID</th>
 										<th>Gender</th>
 										<th>Phone Number</th>
 										<th>DOB</th>
@@ -71,6 +72,7 @@ $page_session = \CodeIgniter\Config\Services::session();
 										<td class="table-plus"><?= $emp['id']?></td>
 										<td><?= $emp['first_name'] ." ". $emp['last_name'] ?></td>
 										<td><?= $emp['email']?></td>
+										<td><?= $emp['employee_id']?></td>
 										<td><?= $emp['gender']?></td>
 										<td><?= $emp['phone']?></td>
 										<td><?= $emp['dob']?></td>

@@ -19,15 +19,16 @@ $page_session = \CodeIgniter\Config\Services::session();
         <div class="col-md-6 col-lg-5">
             <div class="login-box bg-white box-shadow border-radius-10">
                 <div class="login-title">
-					<h2 class="text-center text-primary">Enter An Email address to reset your password</h2>
+                    <h2 class="text-center text-primary">Admin Password Reset</h2>
+					<p class="text-center text-primary">Enter An Email address to reset your password</p>
 				</div>
 
-            <?php if(isset($validation)):?>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <?= $validation->listErrors()?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>    
-                </div>
-            <?php endif;?>
+                <?php if(isset($validation)):?>
+								<div class="alert alert-danger alert-dismissible fade show" role="alert">
+									<?= $validation->listErrors()?>
+									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								</div>
+							<?php endif;?> 
 
             <?php if($page_session->getTempdata('adminforgot_success')):?>
 				<div class="alert alert-success alert-dismissible fade show" role="alert">

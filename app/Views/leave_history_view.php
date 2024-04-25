@@ -27,7 +27,9 @@
 							
 						</div>
 						<div class="pb-20">
-							<table class="data-table table stripe hover nowrap">
+
+							<?php if(count($approved) > 0):?>
+								<table class="data-table table stripe hover nowrap">
 								<thead>
 									<tr>
 										<th class="table-plus datatable-nosort">Name</th>
@@ -425,6 +427,7 @@
 									</tr>
 								</tbody>
 							</table>
+							<?php endif;?>
 						</div>
 					</div>
 					<!-- Simple Datatable End -->

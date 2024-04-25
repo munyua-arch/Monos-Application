@@ -131,6 +131,7 @@
 									<tr>
 										<th class="table-plus datatable-nosort">#</th>
 										<th>Employee Name</th>
+										<th>Employee ID</th>
 										<th>Start Date</th>
 										<th>End Date</th>
 										<th>Leave Type</th>
@@ -144,6 +145,7 @@
 										<tr>
 										<td class="table-plus"><?= $req['id']?></td>
 										<td><?= $req['name']?></td>
+										<td><?= $req['employee_id']?></td>
 										<td><?= date('l d M Y', strtotime($req['start_date']))?></td>
 										<td><?= date('l d M Y', strtotime($req['end_date']))?></td>
 										<td><?= $req['leave_type']?></td>

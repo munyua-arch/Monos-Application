@@ -32,6 +32,7 @@ class Admindashboard extends BaseController
         $this->createAdmin = new CreateAdmin();
         $this->approvedModel = new ApprovedModel();
         $this->declinedModel = new DeclinedModel();
+        $this->userModel = new UserdashModel();
         $this->email = \Config\Services::email();
     }
 
@@ -45,10 +46,7 @@ class Admindashboard extends BaseController
         $data['totalDeclined'] = $this->declinedModel->getTotal();
         $data['totalApproved'] = $this->approvedModel->getTotal();
 
-        if (!session()->has('logged_user')) 
-        {
-            return redirect()->to(base_url().'admin-login');
-        }
+       
 
         // Get unread leaves
         $data['unreadLeaves'] = $this->requestModel->getUnreadLeaves();
@@ -89,6 +87,7 @@ class Admindashboard extends BaseController
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|valid_email',
+            'employee_id' => 'required',
             'gender' => 'required',
             'phone' => 'required|exact_length[10]',
             'dob' => 'required',
@@ -116,6 +115,7 @@ class Admindashboard extends BaseController
                     'first_name' => $this->request->getPost('first_name', FILTER_SANITIZE_STRING),
                     'last_name' => $this->request->getPost('last_name', FILTER_SANITIZE_STRING),
                     'email' => $this->request->getPost('email', FILTER_SANITIZE_STRING),
+                    'employee_id' => $this->request->getPost('employee_id', FILTER_SANITIZE_STRING),
                     'gender' => $this->request->getPost('gender', FILTER_SANITIZE_STRING),
                     'phone' => $this->request->getPost('phone', FILTER_SANITIZE_STRING),
                     'dob' => $this->request->getPost('dob', FILTER_SANITIZE_STRING),
@@ -470,7 +470,7 @@ class Admindashboard extends BaseController
     public function logout()
     {
         //destroy login session
-        session()->remove('logged_user');
+        session()->remove('admin_logged');
         session()->destroy();
 
         return redirect()->to(base_url().'admin-login/');
@@ -535,7 +535,7 @@ class Admindashboard extends BaseController
     public function changePassword()
     {
             $data = [];
-            $data['userdata'] = $this->createAdmin->getLoggedUserData(session()->get('logged_user'));
+            $data['userdata'] = $this->createAdmin->getLoggedUserData(session()->get('admin_logged'));
         
         
         $rules = [

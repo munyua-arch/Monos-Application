@@ -23,8 +23,9 @@ $page_session = \CodeIgniter\Config\Services::session();
 				</div>
 
             <?php if(isset($validation)):?>
-                <div class="alert alert-danger">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <?= $validation->listErrors()?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             <?php endif;?>
 

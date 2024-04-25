@@ -136,6 +136,7 @@ $page_session = \CodeIgniter\Config\Services::session();
                                 </div>
                             </div>
                         </div>
+                        
 
                         <div class="form-floating mb-3">
                                 <select class="form-select" aria-label="Default select example" name="department">
@@ -145,7 +146,13 @@ $page_session = \CodeIgniter\Config\Services::session();
                                     
                                 </select>
                                    
-                                </div>
+                        </div>
+                        
+                        <div class="form-floating mb-3">
+                            <input type="text" name="employee_id" class="form-control" id="floatingInput" placeholder="Employee ID" value="<?= set_value('employee_id')?>">
+                            <label for="floatingInput">Employee ID</label>
+                                    
+                        </div>
                                 
 
                             <input type="submit" name="submit" value="Create New Employee" class="btn btn-lg btn-primary">  

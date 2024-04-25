@@ -70,19 +70,19 @@ $page_session = \CodeIgniter\Config\Services::session();
                                                 <tr>
 
                                                 <td ><b>Employee ID:</b></td>
-                                              <td colspan="1">Sec12</td>
+                                              <td colspan="1"><?= $leave['employee_id']?></td>
                                             <td> <b>Employee Name:</b></td>
                                               <td><?= $leave['name']?></td>
 
                                               <td ><b>Gender :</b></td>
-                                              <td colspan="1">Male</td>
+                                              <td colspan="1"><?= $leave['gender']?></td>
                                           </tr>
 
                                           <tr>
                                              <td ><b>Employee Email:</b></td>
                                             <td colspan="1"><?= $leave['email']?></td>
                                              <td ><b>Employee Contact:</b></td>
-                                            <td colspan="1">1234567890</td>
+                                            <td colspan="1"><?= $leave['phone']?></td>
 
                                             <td ><b>Leave Type:</b></td>
                                             <td colspan="1"><?= $leave['leave_type']?></td>

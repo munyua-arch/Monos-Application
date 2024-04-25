@@ -4,12 +4,17 @@ namespace App\Controllers;
 use App\Models\RequestModel;
 use App\Models\CreateEmployee;
 use App\Models\UserdashModel;
+use App\Models\ApprovedModel;
+use App\Models\DeclinedModel;
+
 
 class Dashboard extends BaseController
 {
     public $createEmployee;
     public $userModel;
     public $requestModel;
+    public $approvedModel;
+    public $declinedModel;
 
     public function __construct()
     {
@@ -17,6 +22,8 @@ class Dashboard extends BaseController
         $this->createEmployee = new CreateEmployee();
         $this->userModel = new UserdashModel();
         $this->requestModel = new RequestModel();
+        $this->approvedModel = new ApprovedModel();
+        $this->declinedModel = new DeclinedModel();
     }
 
     public function index()
@@ -51,6 +58,9 @@ class Dashboard extends BaseController
         $rules = [
             'name' => 'required',
             'email' => 'required|valid_email',
+            'employee_id' => 'required',
+            'phone' => 'required',
+            'gender' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
             'leave_type' => 'required',
@@ -64,6 +74,9 @@ class Dashboard extends BaseController
                 $requestData = [
                     'name' => $this->request->getPost('name', FILTER_SANITIZE_STRING),
                     'email' => $this->request->getPost('email', FILTER_SANITIZE_STRING),
+                    'employee_id' => $this->request->getPost('employee_id', FILTER_SANITIZE_STRING),
+                    'phone' => $this->request->getPost('phone', FILTER_SANITIZE_STRING),
+                    'gender' => $this->request->getPost('gender', FILTER_SANITIZE_STRING),
                     'start_date' => $this->request->getPost('start_date', FILTER_SANITIZE_STRING),
                     'end_date' => $this->request->getPost('end_date', FILTER_SANITIZE_STRING),
                     'leave_type' => $this->request->getPost('leave_type', FILTER_SANITIZE_STRING),
@@ -72,11 +85,11 @@ class Dashboard extends BaseController
 
                 
                 if ($this->requestModel->save($requestData)) {
-                    session()->setTempdata('request_succes', 'Your Leave request has been submitted successfully!');
+                    session()->setFlashdata('request_succes', 'Your Leave request has been submitted successfully!');
                 }
                 else
                 {
-                    session()->setTempdata('request_error', 'Failed to request leave, please try again!');
+                    session()->setFlashdata('request_error', 'Failed to request leave, please try again!');
                 }
 
 
@@ -91,7 +104,21 @@ class Dashboard extends BaseController
 
     public function leaveHistory()
     {
-        return view('history_view');
+        $uniid = session()->get('logged_user');
+
+        $data['userdata'] = $this->userModel->getLoggedUserData($uniid);
+
+
+        $fullname = $data['userdata']['first_name']. " ".$data['userdata']['last_name'];
+
+        
+
+        $data['approved'] = $this->approvedModel->where('name', $fullname)->findAll();
+        $data['declined'] = $this->declinedModel->where('name', $fullname)->findAll();
+        $data['pending'] = $this->requestModel->where('name', $fullname)->findAll();
+
+
+        return view('history_view', $data);
     }
 
     public function changePassword()

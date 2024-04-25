@@ -9,7 +9,7 @@ class RequestModel extends Model
     protected $table            = 'requests';
     protected $primaryKey       = 'id';
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id', 'name', 'email', 'start_date', 'end_date', 'leave_type', 'reason', 'isRead', 'admin_remark', 'remark_date', 'applied_on', 'status'];
+    protected $allowedFields    = ['id', 'name', 'email', 'employee_id', 'phone', 'gender','start_date', 'end_date', 'leave_type', 'reason', 'isRead', 'admin_remark', 'remark_date', 'applied_on', 'status'];
 
    
 
@@ -28,7 +28,7 @@ class RequestModel extends Model
 
     public function getUnreadLeaves()
     {
-        return $this->select('id, name, email, start_date, end_date, leave_type, reason, admin_remark, remark_date, applied_on, status')
+        return $this->select('id, name, email, employee_id start_date, end_date, leave_type, reason, admin_remark, remark_date, applied_on, status')
             ->where('isRead', 0)
             ->findAll();
     }
