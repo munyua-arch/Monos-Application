@@ -23,7 +23,24 @@ class UserdashModel extends Model{
         return null;
     }   
 
-  }    
+  } 
+  
+  public function getAdminUserData($id)
+  {
+    $builder = $this->db->table('admin');
+    $builder->where('uniid', $id);
+    $result = $builder->get();
+
+    if (count($result->getResultArray()) == 1)
+    {
+            return $result->getRowArray();
+    }
+    else
+    {
+        return null;
+    }   
+
+  } 
 }
 
 

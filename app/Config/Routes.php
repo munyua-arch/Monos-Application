@@ -67,8 +67,18 @@ $routes->get('dashboard/logout', 'Dashboard::logout');
     $routes->get('admindashboard/new-department', 'Admindashboard::newDept');
     $routes->post('admindashboard/new-department', 'Admindashboard::newDept');
 
+    $routes->get('admindashboard/edit-department/(:num)', 'Admindashboard::editDept/$1');
+    $routes->post('admindashboard/edit-department/(:num)', 'Admindashboard::editDept/$1');
+
+    $routes->get('admindashboard/delete-department/(:num)', 'Admindashboard::deleteDept/$1');
+
     $routes->get('admindashboard/new-leave', 'Admindashboard::newLeave');
     $routes->post('admindashboard/new-leave', 'Admindashboard::newLeave');
+
+    $routes->get('admindashboard/edit-leave/(:num)', 'Admindashboard::editLeave/$1');
+    $routes->post('admindashboard/edit-leave/(:num)', 'Admindashboard::editLeave/$1');
+
+    $routes->get('admindashboard/delete-leave/(:num)', 'Admindashboard::deleteLeave/$1');
 
     $routes->get('admindashboard/pending', 'Admindashboard::pending');
     $routes->get('admindashboard/approved', 'Admindashboard::approved');

@@ -42,7 +42,7 @@ if (isset($userdata) && !empty($userdata)) {
 							data-toggle="dropdown"
 						>
 							<img src="public/backend/vendors/images/person.svg" alt="">
-							<span class="user-name mt-2">Admin</span>
+							<span class="user-name mt-2"></span>
 						</a>
 						<div
 							class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"

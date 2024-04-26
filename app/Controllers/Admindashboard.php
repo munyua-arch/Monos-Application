@@ -47,9 +47,14 @@ class Admindashboard extends BaseController
         $data['totalApproved'] = $this->approvedModel->getTotal();
 
        
+        $uniid = session()->get('logged_user');
+
+        
 
         // Get unread leaves
         $data['unreadLeaves'] = $this->requestModel->getUnreadLeaves();
+        $data['admindata'] = $this->userModel->getAdminUserData($uniid);
+
 
         return view('admindashboard_view', $data);
     }
@@ -69,6 +74,56 @@ class Admindashboard extends BaseController
         $data['departments'] = $this->departmentModel->findAll();
 
         return view('department_view', $data);
+    }
+
+    public function editDept($id = null)
+    {
+        //define rules to validate form
+        $data = [];
+        $data['deptdata'] =  $this->departmentModel->find($id);
+
+        $rules = [
+                'department' => 'required',
+                'shortform' => 'required',
+                'HOD' => 'required',
+                
+        ];
+
+        if ($this->request->is('post'))
+        {
+                if ($this->validate($rules)) 
+                {
+                    $departmentData = [
+                        'department' => $this->request->getPost('department', FILTER_SANITIZE_STRING),
+                        'shortform' => $this->request->getPost('shortform', FILTER_SANITIZE_STRING),
+                        'HOD' => $this->request->getPost('HOD', FILTER_SANITIZE_STRING),
+                    ];
+
+                    if ($this->departmentModel->update($id , $departmentData)) 
+                    {
+                        session()->setFlashdata('deptupdate_success', 'Department updated successfully!');
+                    }
+                    else
+                    {
+                        session()->setFlashdata('deptupdate_error', 'Failed to update department, please try again!');
+                    }
+
+                }
+                else
+                {
+                        $data['validation'] = $this->validator;
+                }
+        }
+
+        return view('edit_department_view', $data);
+    }
+
+    public function deleteDept($id = null)
+    {
+        if ($this->departmentModel->where('id', $id)->delete()) {
+            session()->setTempdata('delete_dept', "Department deleted successfully");
+            return redirect()->to(base_url().'admindashboard/departments');
+        }
     }
 
     public function leave()
@@ -204,7 +259,7 @@ class Admindashboard extends BaseController
 
         $rules = [
                 'leave_type' => 'required',
-                'admin_remark' => 'required|max_length[255]',
+                'description' => 'required|max_length[255]',
       
         ];
 
@@ -215,7 +270,7 @@ class Admindashboard extends BaseController
                     //get form data and save to db
                     $leaveData = [
                         'leave_type' => $this->request->getPost('leave_type', FILTER_SANITIZE_STRING),
-                        'admin_remark' => $this->request->getPost('admin_remark', FILTER_SANITIZE_STRING),
+                        'description' => $this->request->getPost('description', FILTER_SANITIZE_STRING),
                     ];
 
                 if ($this->leaveModel->save($leaveData)) 
@@ -238,6 +293,61 @@ class Admindashboard extends BaseController
         return view('new_leave_view', $data);
     }
    
+    public function editLeave($id=null)
+    {
+       
+        //define rules to validate form
+        $data = [];
+        $data['leaveinfo'] = $this->leaveModel->find($id);
+
+        $rules = [
+                'leave_type' => 'required',
+                'description' => 'max_length[255]',
+      
+        ];
+
+        if ($this->request->is('post'))
+        {
+                if ($this->validate($rules)) 
+                {
+                    //get form data and save to db
+                    $updateData = [
+                        'leave_type' => $this->request->getPost('leave_type', FILTER_SANITIZE_STRING),
+                        'description' => $this->request->getPost('description', FILTER_SANITIZE_STRING),
+                    ];
+
+                if ($this->leaveModel->update($id, $updateData)) 
+                {
+                  session()->setFlashdata('leaveupdate_success', 'Leave type updated successfully');
+                  
+                }
+                else
+                {
+                    session()->setFlashdata('leaveupdate_error', 'Failed to update leave type, try again!');
+                    
+                }
+                }
+                else
+                {
+                        $data['validation'] = $this->validator;
+                }
+        }
+
+        return view('edit_leave_view', $data);
+    }
+
+    public function deleteLeave($id=null)
+    {
+        //delete leave type based on id and unset id
+        if ($this->leaveModel->where('id', $id)->delete()) {
+            session()->setTempdata('leave_delete', "Leave type deleted successfully.");
+        }
+
+        return redirect()->to(base_url().'admindashboard/leave-types');
+
+    }
+   
+
     public function pending()
     {
         $data['requests'] = $this->requestModel->orderBy('id', 'DESC')->findAll();
@@ -470,7 +580,7 @@ class Admindashboard extends BaseController
     public function logout()
     {
         //destroy login session
-        session()->remove('admin_logged');
+        session()->remove('logged_user');
         session()->destroy();
 
         return redirect()->to(base_url().'admin-login/');

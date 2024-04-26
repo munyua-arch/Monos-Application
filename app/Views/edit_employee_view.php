@@ -42,11 +42,14 @@ $page_session = \CodeIgniter\Config\Services::session();
 						</div>
 
                         <!-- Display invalid form errors -->
-                            <div class="alert alert-danger">
+                            
                                 <?php if(isset($validation)):?>
-                                    <?= $validation->listErrors(); ?>
+                                    <div class="alert alert-danger alert-dimissible fade show" role="alert">
+                                        <?= $validation->listErrors(); ?>
+                                        <button class="btn-close" type="button" data-bs-dismiss="alert" role="Close"></button>
+                                    </div>
                                 <?php endif;?>
-                            </div>
+                            
                         <!-- Display invalid form errors -->
 
                         

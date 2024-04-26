@@ -1,3 +1,8 @@
+<?php 
+
+$page_session = \CodeIgniter\Config\Services::session();
+?>
+
 <?= $this->extend('backend/admin-layouts'); ?>
 <?= $this->section('content'); ?>
 
@@ -20,6 +25,14 @@
 							</div>
 						</div>
 					</div>
+
+					<?php if($page_session->getTempdata('delete_dept')):?>
+                        <div class="alert alert-success alert-dimissible fade show" role="alert">
+                            <?= $page_session->getTempdata('delete_dept') ?>
+                            <button class="btn-close" type="button" data-bs-dismiss="alert" role="Close"></button>
+                        </div>
+                    <?php endif;?>
+
 					<!-- Simple Datatable start -->
 					<div class="card-box mb-30">
 						<div class="pd-20">
@@ -65,13 +78,11 @@
 												<div
 													class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
 												>
-													<a class="dropdown-item" href="#"
-														><i class="dw dw-eye"></i> View</a
-													>
-													<a class="dropdown-item" href="#"
+													
+													<a class="dropdown-item" href="<?= base_url().'admindashboard/edit-department/'. $dept['id']?>"
 														><i class="dw dw-edit2"></i> Edit</a
 													>
-													<a class="dropdown-item" href="#"
+													<a class="dropdown-item" href="<?= base_url().'admindashboard/delete-department/'. $dept['id']?>"
 														><i class="dw dw-delete-3"></i> Delete</a
 													>
 												</div>

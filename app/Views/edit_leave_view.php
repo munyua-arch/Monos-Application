@@ -24,7 +24,7 @@ $page_session = \CodeIgniter\Config\Services::session();
                                                 <a href="<?= base_url().'admindashboard/leave-types'?>">Leaves</a>
                                             </li>
                                             <li class="breadcrumb-item active" aria-current="page">
-                                                New Leave
+                                                Update Leave Info
                                             </li>
                                         </ol>
                                     </nav>
@@ -36,8 +36,8 @@ $page_session = \CodeIgniter\Config\Services::session();
     <div class="pd-20 card-box mb-30">
 						<div class="clearfix">
 							<div class="pull-left">
-								<h4 class="text-blue h4">New Leave Type</h4>
-								<p class="mb-30">Please fill the form below to add a new leave type</p>
+								<h4 class="text-blue h4">Update Leave Info</h4>
+								<p class="mb-30">Please fill the form below to update leave type</p>
 							</div>
 						</div>
 
@@ -53,22 +53,24 @@ $page_session = \CodeIgniter\Config\Services::session();
                         <!-- Display invalid form errors -->
 
 
-                        <?php if($page_session->has('leave_success')): ?>
-                            <div class="alert alert-success">
-                                <?= $page_session->get('leave_success') ?>
+                        <?php if($page_session->has('leaveupdate_success')): ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= $page_session->get('leaveupdate_success') ?>
+                                <button class="btn-close" type="button" data-bs-dismiss="alert" role="Close"></button>
                             </div>
                         <?php endif;?>
 
-                        <?php if($page_session->has('leave_error')): ?>
-                            <div class="alert alert-danger">
-                                <?= $page_session->get('leave_error') ?>
+                        <?php if($page_session->has('leaveupdate_error')): ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <?= $page_session->get('leaveupdate_error') ?>
+                                <button class="btn-close" type="button" data-bs-dismiss="alert" role="Close"></button>
                             </div>
                         <?php endif;?>
 
 						<?= form_open();?>
                             
                                 <div class="form-floating mb-3">
-                                    <input type="text" name="leave_type" class="form-control" id="floatingInput" placeholder="Leave Type" value="<?= set_value('leave_type')?>">
+                                    <input type="text" name="leave_type" class="form-control" id="floatingInput" placeholder="Leave Type" value="<?= $leaveinfo['leave_type']?>">
                                     <label for="floatingInput">Leave Type</label>
                                     
                                 </div>
@@ -76,11 +78,11 @@ $page_session = \CodeIgniter\Config\Services::session();
                             
                                 <div class="form-group">
 								<label>Description</label>
-								<textarea class="form-control" name="description" placeholder="e.g Sick leave offers staff member chance to recover their health" value="<?= set_value('description') ?>"></textarea>
+								<textarea class="form-control" name="description" placeholder="e.g Sick leave offers staff member chance to recover their health" value="<?= $leaveinfo['description'] ?>"></textarea>
 							</div>
                           
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Create New Leave Type</button>
+                                <button type="submit" class="btn btn-primary">Update Leave Type</button>
                             </div>
 						
 						<?= form_close();?>
