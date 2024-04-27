@@ -15,6 +15,8 @@ class Dashboard extends BaseController
     public $requestModel;
     public $approvedModel;
     public $declinedModel;
+    public $email;
+
 
     public function __construct()
     {
@@ -24,6 +26,7 @@ class Dashboard extends BaseController
         $this->requestModel = new RequestModel();
         $this->approvedModel = new ApprovedModel();
         $this->declinedModel = new DeclinedModel();
+        $this->email = \Config\Services::email();
     }
 
     public function index()
@@ -85,7 +88,25 @@ class Dashboard extends BaseController
 
                 
                 if ($this->requestModel->save($requestData)) {
-                    session()->setFlashdata('request_succes', 'Your Leave request has been submitted successfully!');
+                    
+
+                    // send an email to the admin to notify of the leave submission
+                    $to = 'dmurimi919@gmail.com';
+                    $subject = 'New Leave Request';
+                    $message = 'A new leave request has been submitted, please review it.';
+
+                    $this->email->setTo($to);
+                    $this->email->setFrom('test@gmail.com', 'Aizendev');
+                    $this->email->setSubject($subject);
+                    $this->email->setMessage($message);
+
+                    if ($this->email->send()) {
+                        session()->setTempdata('email_success', 'Your form has been submitted successfully, an email has been sent to the HOD');
+                    }
+                    else{
+                        session()->setTempdata('email_error', 'Failed to send an email, please try again');
+                    }
+
                 }
                 else
                 {

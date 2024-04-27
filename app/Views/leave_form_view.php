@@ -48,16 +48,16 @@ $page_session = \CodeIgniter\Config\Services::session();
                                 <?php endif;?>
                         <!-- Display invalid form errors -->
                                     
-                    <?php if($page_session->has('request_success')):?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?= $page_session->get('request_success')?>
+                    <?php if($page_session->getTempdata('email_success')):?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?= $page_session->getTempdata('email_success')?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     <?php endif;?>
 
-                    <?php if($page_session->has('request_error')):?>
+                    <?php if($page_session->getTempdata('email_error')):?>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?= $page_session->get('request_error')?>
+                        <?= $page_session->getTempdata('email_error')?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     <?php endif;?>
