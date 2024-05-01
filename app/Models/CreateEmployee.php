@@ -52,7 +52,7 @@ class CreateEmployee extends Model
      public function getLoggedUserData($id)
      {
        $builder = $this->db->table('employees');
-       $builder->select(['first_name', 'last_name', 'email', 'employee_id', 'dob', 'password', 'uniid', 'status']);
+       $builder->select(['first_name', 'last_name', 'email', 'phone', 'employee_id', 'dob', 'password', 'uniid', 'status']);
        $builder->where('uniid', $id);
        $result = $builder->get();
    
@@ -74,6 +74,22 @@ class CreateEmployee extends Model
         
         // Execute the update query
         $builder->update(['password' => $new_password]);
+    
+        // Check the affected rows
+        if ($this->db->affectedRows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateEmployee($id , $data)
+    {
+        $builder = $this->db->table('employees');
+        $builder->where('uniid', $id);
+        
+        // Execute the update query
+        $builder->update($data);
     
         // Check the affected rows
         if ($this->db->affectedRows() > 0) {

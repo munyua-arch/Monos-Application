@@ -52,6 +52,9 @@ $routes->get('dashboard/history', 'Dashboard::leaveHistory');
 $routes->get('dashboard/change-password', 'Dashboard::changePassword');
 $routes->post('dashboard/change-password', 'Dashboard::changePassword');
 
+$routes->get('dashboard/edit-info', 'Dashboard::editInfo');
+$routes->post('dashboard/edit-info', 'Dashboard::editInfo');
+
 $routes->get('dashboard/logout', 'Dashboard::logout');
 
 

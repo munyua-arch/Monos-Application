@@ -194,6 +194,51 @@ class Dashboard extends BaseController
             return view('employee_changepassword_view', $data);
     }
 
+    public function editInfo()
+    {
+        $data = [];
+
+        $uniid = session()->get('logged_user');
+
+       
+
+        $data['userinfo'] = $this->createEmployee->getLoggedUserData($uniid);
+        
+        $rules = [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|valid_email',
+            'phone' => 'required'
+        ];
+
+        if ($this->request->is('post')) 
+        {
+            
+           if ($this->validate($rules)) 
+           {
+                $changedata = [
+                    'first_name' => $this->request->getPost('first_name', FILTER_SANITIZE_STRING),
+                    'last_name' => $this->request->getPost('last_name', FILTER_SANITIZE_STRING),
+                    'email' => $this->request->getPost('email', FILTER_SANITIZE_STRING),
+                    'phone' => $this->request->getPost('phone', FILTER_SANITIZE_STRING)
+                ];
+
+                if ($this->createEmployee->updateEmployee($uniid, $changedata)) 
+                {
+                    session()->setTempdata('change_success', 'Your profile has been updated successfully!');
+                }
+                else {
+                    session()->setTempdata('change_error', 'Your profile has been updated successfully!');
+                }
+           }
+           else
+           {
+            $data['validation'] = $this->validator;
+           }
+        }
+        return view('self_employee_update_view', $data);
+    }
+
     public function logout()
     {
         //destroy login session

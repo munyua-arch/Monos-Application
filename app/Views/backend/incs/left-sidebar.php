@@ -39,7 +39,7 @@
 							</a>
 							<ul class="submenu">
 								<li><a href="<?= base_url().'dashboard/change-password'?>">Change Password</a></li>
-								<li><a href="<?= base_url().'dashboard/edit-admin'?>">Edit Profile</a></li>		
+								<li><a href="<?= base_url().'dashboard/edit-info'?>">Edit Profile</a></li>		
 							</ul>
 						</li>
 					
