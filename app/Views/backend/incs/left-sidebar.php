@@ -14,8 +14,9 @@
 					<ul id="accordion-menu">
 						<li>
 							<a href="<?= base_url().'dashboard/'?>" class="dropdown-toggle no-arrow">
-								<span class="micon bi bi-file"></span>
+								<span class="micon bi bi-speedometer	"></span>
 								<span class="mtext">Dashboard</span>
+							</a>
 							</a>
 						</li>
 						<li>

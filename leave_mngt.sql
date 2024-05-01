@@ -31,6 +31,7 @@ CREATE TABLE `admin` (
   `id` int(11) NOT NULL,
   `full_name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
+  `phone` varchar(32) NOT NULL,
   `password` varchar(200) NOT NULL,
   `uniid` varchar(32) NOT NULL,
   `status` varchar(100) NOT NULL DEFAULT 'active',
