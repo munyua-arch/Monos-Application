@@ -53,7 +53,7 @@ class Home extends BaseController
                         if ($userdata['status'] == 'active') 
                         {
                             //create a login session
-                            session()->set('logged_user', $userdata['uniid']);
+                            session()->set('admin_logged', $userdata['uniid']);
                             return redirect()->to(base_url().'admindashboard/');
                         }
                         else

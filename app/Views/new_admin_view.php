@@ -77,6 +77,10 @@ $page_session = \CodeIgniter\Config\Services::session();
                                 <input type="email" name="email" class="form-control" id="floatingInput" placeholder="Email" value="<?= set_value('email')?>">
                                 <label for="floatingInput">Email</label>     
                             </div>
+                            <div class="form-floating mb-3">
+                                <input type="tel" name="phone" class="form-control" id="floatingInput" placeholder="Phone" value="<?= set_value('phone')?>">
+                                <label for="floatingInput">Phone</label>     
+                            </div>
 
                             <h4 class="lead fw-bold mb-3">Setting Passwords</h4>
 

@@ -47,7 +47,7 @@ class Admindashboard extends BaseController
         $data['totalApproved'] = $this->approvedModel->getTotal();
 
        
-        $uniid = session()->get('logged_user');
+        $uniid = session()->get('admin_logged');
 
         
 
@@ -544,6 +544,7 @@ class Admindashboard extends BaseController
         $rules = [
             'full_name' => 'required',
             'email' => 'required|valid_email',
+            'phone' => 'required',
             'password' => 'required|min_length[5]|max_length[20]',
             'confirm_password' => 'required|matches[password]'
         ];
@@ -556,6 +557,7 @@ class Admindashboard extends BaseController
 
                 $adminData = [
                     'full_name' => $this->request->getPost('full_name', FILTER_SANITIZE_STRING),
+                    'phone' => $this->request->getPost('phone', FILTER_SANITIZE_STRING),
                     'email' => $this->request->getPost('email', FILTER_SANITIZE_STRING),
                     'password' => password_hash($this->request->getPost('password', FILTER_SANITIZE_STRING), PASSWORD_BCRYPT),
                     'uniid' => $uniid
@@ -580,7 +582,7 @@ class Admindashboard extends BaseController
     public function logout()
     {
         //destroy login session
-        session()->remove('logged_user');
+        session()->remove('admin_logged');
         session()->destroy();
 
         return redirect()->to(base_url().'admin-login/');
@@ -691,6 +693,48 @@ class Admindashboard extends BaseController
             }
         }
             return view('admin_changepassword_view', $data);
+    }
+
+    public function updateAdmin()
+    {
+        $data = [];
+
+        $uniid = session()->get('admin_logged');
+        $data['admininfo'] = $this->createAdmin->getLoggedUserData($uniid);
+
+        $rules = [
+            'full_name' => 'required',
+            'email' => 'required|valid_email',
+            'phone' => 'required'
+        ];
+
+        if ($this->request->is('post')) 
+        {
+           
+            if ($this->validate($rules)) {
+                $changedata = [
+                    'full_name' => $this->request->getPost('full_name', FILTER_SANITIZE_STRING),
+                    'email' => $this->request->getPost('email', FILTER_SANITIZE_STRING),
+                    'phone' => $this->request->getPost('phone', FILTER_SANITIZE_STRING)
+                ];
+
+                $changedData = $this->createAdmin->updateAdmin($uniid, $changedata);
+
+                if ($changedData) 
+                {
+                    session()->setTempdata('admin_change_success', 'Your profile has been updated successfully!');
+                }
+                else {
+                    session()->setTempdata('admin_change_error', 'Failed to update your profile, please try again!');
+                }
+            }
+            else {
+                $data['validation'] = $this->validator;
+            }
+        }
+
+
+        return view('admin_update_view', $data);
     }
 
 }

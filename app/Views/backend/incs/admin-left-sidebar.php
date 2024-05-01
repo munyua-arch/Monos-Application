@@ -60,7 +60,7 @@
 							</a>
 							<ul class="submenu">
 								<li><a href="<?= base_url().'admindashboard/admin-change-password'?>">Change Password</a></li>
-								<li><a href="<?= base_url().'admindashboard/edit-admin'?>">Edit Profile</a></li>		
+								<li><a href="<?= base_url().'admindashboard/update-admin'?>">Edit Profile</a></li>		
 							</ul>
 						</li>
 					

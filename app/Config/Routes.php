@@ -113,4 +113,7 @@ $routes->get('dashboard/logout', 'Dashboard::logout');
     $routes->get('admindashboard/admin-change-password', 'Admindashboard::changePassword');
     $routes->post('admindashboard/admin-change-password', 'Admindashboard::changePassword');
 
+    $routes->get('admindashboard/update-admin', 'Admindashboard::updateAdmin');
+    $routes->post('admindashboard/update-admin', 'Admindashboard::updateAdmin');
+
     $routes->get('admindashboard/logout', 'Admindashboard::logout');

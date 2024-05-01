@@ -9,7 +9,7 @@ class CreateAdmin extends Model
     protected $table            = 'admin';
     protected $primaryKey       = 'id';
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id','full_name', 'email', 'password', 'uniid', 'updated_at', 'deleted_at', 'created_at'];
+    protected $allowedFields    = ['id','full_name', 'phone', 'email', 'password', 'uniid', 'updated_at', 'deleted_at', 'created_at'];
 
    
 
@@ -31,7 +31,7 @@ class CreateAdmin extends Model
     public function verifyEmail($email){
 
         $builder = $this->db->table('admin');
-        $builder->select(['full_name', 'email', 'password', 'uniid', 'status']);
+        $builder->select(['full_name', 'email', 'phone', 'password', 'uniid', 'status']);
         $builder->where('email', $email);
        
          $result = $builder->get();
@@ -74,6 +74,22 @@ class CreateAdmin extends Model
         
         // Execute the update query
         $builder->update(['password' => $new_password]);
+    
+        // Check the affected rows
+        if ($this->db->affectedRows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateAdmin($id , $data)
+    {
+        $builder = $this->db->table('admin');
+        $builder->where('uniid', $id);
+        
+        // Execute the update query
+        $builder->update($data);
     
         // Check the affected rows
         if ($this->db->affectedRows() > 0) {
