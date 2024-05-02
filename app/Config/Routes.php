@@ -58,8 +58,7 @@ $routes->post('dashboard/edit-info', 'Dashboard::editInfo');
 $routes->get('dashboard/logout', 'Dashboard::logout');
 
 
-    //admin routes
-    $routes->get('admindashboard/', 'Admindashboard::index');
+   $routes->get('admindashboard/', 'Admindashboard::index');
     $routes->get('admindashboard/employees', 'Admindashboard::employees');
     $routes->get('admindashboard/departments', 'Admindashboard::departments');
     $routes->get('admindashboard/leave-types', 'Admindashboard::leave');
@@ -117,3 +116,4 @@ $routes->get('dashboard/logout', 'Dashboard::logout');
     $routes->post('admindashboard/update-admin', 'Admindashboard::updateAdmin');
 
     $routes->get('admindashboard/logout', 'Admindashboard::logout');
+   

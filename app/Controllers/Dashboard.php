@@ -56,6 +56,10 @@ class Dashboard extends BaseController
     public function leaveForm()
     {
 
+        if (!session()->has('logged_user')) {
+            return redirect()->to(base_url().'login/');
+        }
+
         $data = [];
 
         $rules = [
@@ -125,6 +129,10 @@ class Dashboard extends BaseController
 
     public function leaveHistory()
     {
+        if (!session()->has('logged_user')) {
+            return redirect()->to(base_url().'login/');
+        }
+
         $uniid = session()->get('logged_user');
 
         $data['userdata'] = $this->userModel->getLoggedUserData($uniid);
@@ -142,6 +150,10 @@ class Dashboard extends BaseController
 
     public function changePassword()
     {
+        if (!session()->has('logged_user')) {
+            return redirect()->to(base_url().'login/');
+        }
+
             $data = [];
             $data['userdata'] = $this->createEmployee->getLoggedUserData(session()->get('logged_user'));
         
@@ -194,6 +206,10 @@ class Dashboard extends BaseController
 
     public function editInfo()
     {
+        if (!session()->has('logged_user')) {
+            return redirect()->to(base_url().'login/');
+        }
+
         $data = [];
 
         $uniid = session()->get('logged_user');
@@ -239,6 +255,10 @@ class Dashboard extends BaseController
 
     public function logout()
     {
+        if (!session()->has('logged_user')) {
+            return redirect()->to(base_url().'login/');
+        }
+        
         //destroy login session
         session()->remove('logged_user');
         session()->destroy();
