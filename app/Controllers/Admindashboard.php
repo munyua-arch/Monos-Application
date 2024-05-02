@@ -38,6 +38,11 @@ class Admindashboard extends BaseController
 
     public function index()
     {
+
+        if (!session()->has('admin_logged')) {
+            return redirect()->to(base_url().'admin-login/');
+        }
+
         $data['requests'] = $this->requestModel->orderBy('id', 'DESC')->findAll();
         $data['total'] = $this->createEmployee->getTotal();
         $data['totalDept'] = $this->departmentModel->getTotal();

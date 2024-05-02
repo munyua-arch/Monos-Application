@@ -129,14 +129,12 @@ class Dashboard extends BaseController
 
         $data['userdata'] = $this->userModel->getLoggedUserData($uniid);
 
+     
+        $employeeName = $data['userdata']['name'];
 
-        $fullname = $data['userdata']['first_name']. " ".$data['userdata']['last_name'];
+       $approvedData = $this->approvedModel->where('name', $employeeName)->findAll();
 
-        
-
-        $data['approved'] = $this->approvedModel->where('name', $fullname)->findAll();
-        $data['declined'] = $this->declinedModel->where('name', $fullname)->findAll();
-        $data['pending'] = $this->requestModel->where('name', $fullname)->findAll();
+       print_r($approvedData);
 
 
         return view('history_view', $data);

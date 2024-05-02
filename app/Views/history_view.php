@@ -26,21 +26,25 @@
         <h4 class="text-blue h4">All Leave History</h4>
     </div>
     <div class="pb-20">
-        <table class="data-table table stripe hover nowrap">
-            <thead>
-                <tr>
-                    <th class="table-plus datatable-nosort">Name</th>
-                    <th>Leave Type</th>
-                    <th>Applied On</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-               
-            </tbody>
-        </table>
+      
+            <table class="data-table table stripe hover nowrap">
+                <thead>
+                    <tr>
+                        <th class="table-plus datatable-nosort">Name</th>
+                        <th>Leave Type</th>
+                        <th>Applied On</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                
+                        
+                
+                </tbody>
+            </table>
+       
     </div>
 </div>
 <!-- Simple Datatable End -->

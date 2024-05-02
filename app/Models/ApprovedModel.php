@@ -9,7 +9,7 @@ class ApprovedModel extends Model
     protected $table            = 'approved_requests';
     protected $primaryKey       = 'id';
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id', 'name', 'leave_type', 'start_date', 'end_date', 'approval_timestamp', 'applied_on'];
+    protected $allowedFields    = ['id', 'name','employee_id', 'leave_type', 'start_date', 'end_date', 'approval_timestamp', 'applied_on'];
 
    
 

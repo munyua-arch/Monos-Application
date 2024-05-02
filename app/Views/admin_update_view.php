@@ -63,7 +63,7 @@ $page_session = \CodeIgniter\Config\Services::session();
 						<?= form_open();?>
                         
                                 <div class="form-floating mb-3">
-                                    <input type="text" name="full_name" class="form-control" id="floatingInput" placeholder="Full Name" value="<?= $admininfo['full_name']?>">
+                                    <input type="text" name="full_name" class="form-control" id="floatingInput" placeholder="Full Name" >
                                     <label for="floatingInput">Full Name</label>
                                     
                                 </div>
@@ -71,14 +71,14 @@ $page_session = \CodeIgniter\Config\Services::session();
                     
 
                         <div class="form-floating mb-3">
-                            <input type="email" name="email" class="form-control" id="floatingInput"  placeholder="name@email.com" value="<?= $admininfo['email']?>">
+                            <input type="email" name="email" class="form-control" id="floatingInput"  placeholder="name@email.com" >
                                 <label for="floatingInput">Email</label>
                                     
                         </div>
                        
                                
                         <div class="form-floating mb-3">
-                            <input type="tel" name="phone" class="form-control" id="floatingInput"  placeholder="name@email.com" value="<?= $admininfo['phone']?>">
+                            <input type="tel" name="phone" class="form-control" id="floatingInput"  placeholder="name@email.com" >
                             <label for="floatingInput">Phone Number</label>
                                     
                         </div>
