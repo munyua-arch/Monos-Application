@@ -69,7 +69,7 @@ class Admindashboard extends BaseController
             return redirect()->to(base_url().'admin-login/');
         }
        
-        $data['employees'] = $this->createEmployee->paginate();
+        $data['employees'] = $this->createEmployee->paginate(10);
         $data['pager'] = $this->createEmployee->pager;
 
 

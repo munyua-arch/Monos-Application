@@ -43,13 +43,6 @@
 								<li><a href="<?= base_url().'dashboard/edit-info'?>">Edit Profile</a></li>		
 							</ul>
 						</li>
-					
-						<li class="dropdown">
-							<a href="<?= base_url().'dashboard/support'?>" class="dropdown-toggle no-arrow">
-								<span class="micon bi bi-info-square"></span
-								><span class="mtext">Support</span>
-							</a>
-						</li>
 					</ul>
 				</div>
 			</div>
