@@ -124,16 +124,23 @@ class Dashboard extends BaseController
 
     public function leaveHistory()
     {
-      
-
         $uniid = session()->get('logged_user');
 
         $data['userdata'] = $this->userModel->getLoggedUserData($uniid);
-
-     
+        
         
 
+        $data['approved'] = $this->approvedModel->where('name' , $data['userdata']['first_name']." ".$data['userdata']['last_name'])->find();
 
+
+        // find declined leave history
+        $data['declined'] = $this->declinedModel->where('name' , $data['userdata']['first_name']." ".$data['userdata']['last_name'])->find();
+
+        // find pending requests
+        $data['pending'] = $this->requestModel->where('name' , $data['userdata']['first_name']." ".$data['userdata']['last_name'])->find();
+
+        
+        
 
         return view('history_view', $data);
     }

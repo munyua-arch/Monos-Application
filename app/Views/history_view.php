@@ -20,13 +20,14 @@
         </div>
     </div>
 </div>
+
 <!-- Simple Datatable start -->
 <div class="card-box mb-30">
     <div class="pd-20">
-        <h4 class="text-blue h4">All Leave History</h4>
+        <h4 class="text-blue h4">My Leave History</h4>
     </div>
     <div class="pb-20">
-      
+        <?php if(count($approved) || count($declined) || count($pending)): ?>
             <table class="data-table table stripe hover nowrap">
                 <thead>
                     <tr>
@@ -39,19 +40,51 @@
                     </tr>
                 </thead>
                 <tbody>
-                
-                      <tr>
-                        <td>Dennis Murimi</td>
-                        <td>Personal Timeoff</td>
-                        <td>Wednesday 01/05/2024</td>
-                        <td>Saturday 04/05/2024</td>
-                        <td>Satury 14/05/2024</td>
-                        <td>Approved</td>
-                      </tr>  
-                
+                    <?php foreach($approved as $app): ?>
+                        <tr>
+                            <td><?= $app['name']?></td>
+                            <td><?= $app['leave_type']?></td>
+                            <td><?= $app['applied_on']?></td>
+                            <td><?= $app['start_date']?></td>
+                            <td><?= $app['end_date']?></td>
+                            <td class="text-success">
+                                <?= ucfirst($app['status'])?>
+                                <i class="icon-copy bi bi-check-square-fill"></i>
+                            </td>
+                        </tr> 
+                    <?php endforeach; ?> 
+
+                    <?php foreach($declined as $dec): ?>
+                        <tr>
+                            <td><?= $dec['name']?></td>
+                            <td><?= $dec['leave_type']?></td>
+                            <td><?= $dec['applied_on']?></td>
+                            <td><?= $dec['start_date']?></td>
+                            <td><?= $dec['end_date']?></td>
+                            <td class="text-danger">
+                                <?= ucfirst($dec['status'])?>
+                                <i class="icon-copy bi bi-x-octagon-fill"></i>
+                            </td>
+                        </tr> 
+                    <?php endforeach; ?> 
+
+                    <?php foreach($pending as $pend): ?>
+                        <tr>
+                            <td><?= $pend['name']?></td>
+                            <td><?= $pend['leave_type']?></td>
+                            <td><?= $pend['applied_on']?></td>
+                            <td><?= $pend['start_date']?></td>
+                            <td><?= $pend['end_date']?></td>
+                            <td class="text-info">
+                                <?= ucfirst($pend['status'])?>
+                            </td>
+                        </tr> 
+                    <?php endforeach; ?> 
                 </tbody>
             </table>
-       
+        <?php else: ?>
+            <p class="d-flex justify-content-center text-danger">No leave history available.</p>
+        <?php endif; ?>
     </div>
 </div>
 <!-- Simple Datatable End -->

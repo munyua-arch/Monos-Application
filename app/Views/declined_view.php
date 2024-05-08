@@ -55,7 +55,7 @@ $page_session = \CodeIgniter\Config\Services::session();
 										<th>End Date</th>
 										<th>Declined On</th>
 										<th>Status</th>
-										<th class="datatable-nosort">Action</th>
+										
 									</tr>
 								</thead>
 								<tbody>
@@ -73,29 +73,7 @@ $page_session = \CodeIgniter\Config\Services::session();
 											Declined
 											<i class="icon-copy bi bi-x-octagon-fill"></i>
 										</td>
-										<td>
-											<div class="dropdown">
-												<a
-													class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-													href="#"
-													role="button"
-													data-toggle="dropdown"
-												>
-													<i class="dw dw-more"></i>
-												</a>
-												<div
-													class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
-												>
-												
-													<a class="dropdown-item" href="<?= base_url().'admindashboard/edit-employee/' . $dec['id'] ?>"
-														><i class="dw dw-edit2"></i> Edit</a
-													>
-													<a class="dropdown-item" href="<?= base_url().'admindashboard/delete-employee/' . $dec['id']?>"
-														><i class="dw dw-delete-3"></i> Delete</a
-													>
-												</div>
-											</div>
-										</td> 
+										
 									</tr>
 								<?php endforeach; ?>
 
