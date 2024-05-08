@@ -47,8 +47,7 @@
 							<ul class="submenu">
 								<li><a href="<?= base_url().'admindashboard/pending'?>">Pending</a></li>
 								<li><a href="<?= base_url().'admindashboard/approved'?>">Approved</a></li>	
-								<li><a href="<?= base_url().'admindashboard/declined'?>">Declined</a></li>	
-								<li><a href="<?= base_url().'admindashboard/leave-history'?>">Leave History</a></li>		
+								<li><a href="<?= base_url().'admindashboard/declined'?>">Declined</a></li>		
 							</ul>
 						</li>
 						

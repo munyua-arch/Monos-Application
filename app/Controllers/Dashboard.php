@@ -138,11 +138,8 @@ class Dashboard extends BaseController
         $data['userdata'] = $this->userModel->getLoggedUserData($uniid);
 
      
-        $employeeName = $data['userdata']['name'];
+        
 
-       $approvedData = $this->approvedModel->where('name', $employeeName)->findAll();
-
-       print_r($approvedData);
 
 
         return view('history_view', $data);
@@ -258,7 +255,7 @@ class Dashboard extends BaseController
         if (!session()->has('logged_user')) {
             return redirect()->to(base_url().'login/');
         }
-        
+
         //destroy login session
         session()->remove('logged_user');
         session()->destroy();

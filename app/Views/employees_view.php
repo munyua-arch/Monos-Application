@@ -1,6 +1,8 @@
 <?php 
 
 $page_session = \CodeIgniter\Config\Services::session();
+
+
 ?>
 
 <?= $this->extend('backend/admin-layouts'); ?>
@@ -109,11 +111,9 @@ $page_session = \CodeIgniter\Config\Services::session();
 							<?php endif;?>
 
 							<!-- pager links -->
-							<div class="d-flex">
+							<div class="d-flex justify-content-center	">
 								<?= $pager->links();?>
 							</div>
-
-
 
 						</div>
 					</div>

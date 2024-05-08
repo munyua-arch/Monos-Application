@@ -40,7 +40,14 @@
                 </thead>
                 <tbody>
                 
-                        
+                      <tr>
+                        <td>Dennis Murimi</td>
+                        <td>Personal Timeoff</td>
+                        <td>Wednesday 01/05/2024</td>
+                        <td>Saturday 04/05/2024</td>
+                        <td>Satury 14/05/2024</td>
+                        <td>Approved</td>
+                      </tr>  
                 
                 </tbody>
             </table>
