@@ -38,9 +38,7 @@ class Admindashboard extends BaseController
 
     public function index()
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
        
         $data['requests'] = $this->requestModel->orderBy('id', 'DESC')->findAll();
         $data['total'] = $this->createEmployee->getTotal();
@@ -65,9 +63,7 @@ class Admindashboard extends BaseController
 
     public function employees()
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
        
         $data['employees'] = $this->createEmployee->paginate(10);
         $data['pager'] = $this->createEmployee->pager;
@@ -78,9 +74,7 @@ class Admindashboard extends BaseController
 
     public function departments()
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
 
         $data['departments'] = $this->departmentModel->findAll();
 
@@ -131,9 +125,7 @@ class Admindashboard extends BaseController
 
     public function deleteDept($id = null)
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
 
         if ($this->departmentModel->where('id', $id)->delete()) {
             session()->setTempdata('delete_dept', "Department deleted successfully");
@@ -143,9 +135,7 @@ class Admindashboard extends BaseController
 
     public function leave()
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
 
         $data['leaves'] = $this->leaveModel->findAll();
         return view('leave_view', $data);
@@ -154,9 +144,7 @@ class Admindashboard extends BaseController
     public function newEmployee()
     {
        
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
 
         //define rules to validate form
        $data = [];
@@ -234,9 +222,7 @@ class Admindashboard extends BaseController
 
     public function newDept()
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
 
         //define rules to validate form
         $data = [];
@@ -280,9 +266,7 @@ class Admindashboard extends BaseController
     public function newLeave()
     {
        
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
 
         //define rules to validate form
         // jg
@@ -326,9 +310,7 @@ class Admindashboard extends BaseController
    
     public function editLeave($id=null)
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
        
         //define rules to validate form
         $data = [];
@@ -372,9 +354,7 @@ class Admindashboard extends BaseController
 
     public function deleteLeave($id=null)
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
 
         //delete leave type based on id and unset id
         if ($this->leaveModel->where('id', $id)->delete()) {
@@ -388,9 +368,7 @@ class Admindashboard extends BaseController
 
     public function pending()
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
 
         $data['requests'] = $this->requestModel->orderBy('id', 'DESC')->findAll();
         return view('pending_view', $data);
@@ -398,9 +376,7 @@ class Admindashboard extends BaseController
 
     public function approved()
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
 
         $data['approved'] = $this->approvedModel->paginate(10);
         $data['pager'] = $this->approvedModel->pager;
@@ -409,9 +385,7 @@ class Admindashboard extends BaseController
     }
     public function declined()
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
 
         $data['declined'] = $this->declinedModel->paginate(10);
         $data['pager'] = $this->declinedModel->pager;
@@ -422,18 +396,14 @@ class Admindashboard extends BaseController
 
     public function leaveHistory()
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
 
         return view('leave_history_view');
     }
 
     public function leaveDetails($id = null)
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
 
         helper('form');
 
@@ -531,9 +501,7 @@ class Admindashboard extends BaseController
 
     public function editEmployee($id=null)
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
 
         //define rules to validate form
        $data = [];
@@ -584,9 +552,7 @@ class Admindashboard extends BaseController
 
     public function deleteEmployee($id = null)
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
 
         if ($this->createEmployee->where('id', $id)->delete()) {
             session()->setTempdata('delete_success', 'Employee deleted successfully!');
@@ -597,9 +563,7 @@ class Admindashboard extends BaseController
 
     public function Admin()
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
 
         $data['admins'] = $this->createAdmin->paginate(10);
         $data['pager'] = $this->createAdmin->pager;
@@ -609,9 +573,7 @@ class Admindashboard extends BaseController
 
     public function newAdmin()
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
 
         $data = [];
 
@@ -655,9 +617,7 @@ class Admindashboard extends BaseController
 
     public function logout()
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
 
         //destroy login session
         session()->remove('admin_logged');
@@ -668,9 +628,7 @@ class Admindashboard extends BaseController
 
     public function editAdmin($id=null)
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
         //define rules to validate form
        $data = [];
        $data['editadmin'] = $this->createAdmin->find($id);
@@ -718,9 +676,7 @@ class Admindashboard extends BaseController
 
     public function deleteAdmin($id = null)
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
 
         if ($this->createAdmin->where('id', $id)->delete()) {
             session()->setTempdata('delete_success', 'HOD deleted successfully!');
@@ -731,9 +687,7 @@ class Admindashboard extends BaseController
 
     public function changePassword()
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
 
             $data = [];
             $data['userdata'] = $this->createAdmin->getLoggedUserData(session()->get('admin_logged'));
@@ -786,9 +740,7 @@ class Admindashboard extends BaseController
 
     public function updateAdmin()
     {
-        if (!session()->has('admin_logged')) {
-            return redirect()->to(base_url().'admin-login/');
-        }
+        
         
         $data = [];
 
