@@ -27,6 +27,17 @@ to the version that was committed to github.
 
 Import the `leave_mngt.sql` database in your mysql server
 
+## Email Feature Configuration
+
+In Config/Email.php file, configure your email address and email app password for smooth 
+functionality
+
+`public string $SMTPUser = 'YOUR_EMAIL_ADDRESS';`
+
+`public string $SMTPPass = 'YOUR_APP_PASSWORD';`
+
+The rest of the configuaration should be left as default.
+
 ## Usage
 
 We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
