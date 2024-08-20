@@ -9,7 +9,7 @@ class CreateAdmin extends Model
     protected $table            = 'admin';
     protected $primaryKey       = 'id';
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id','full_name', 'phone', 'email', 'password', 'uniid', 'updated_at', 'deleted_at', 'created_at'];
+    protected $allowedFields    = ['id','full_name', 'phone', 'email', 'password', 'dob', 'department', 'gender', 'uniid', 'updated_at', 'deleted_at', 'created_at'];
 
    
 

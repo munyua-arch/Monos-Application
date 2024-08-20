@@ -73,14 +73,51 @@ $page_session = \CodeIgniter\Config\Services::session();
                                 <label for="floatingInput">Full Name</label>
                                     
                             </div>
-                            <div class="form-floating mb-3">
-                                <input type="email" name="email" class="form-control" id="floatingInput" placeholder="Email" value="<?= set_value('email')?>">
-                                <label for="floatingInput">Email</label>     
+                            <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="email" name="email" class="form-control" id="floatingInput"  placeholder="name@email.com" value="<?= set_value('email')?>">
+                                    <label for="floatingInput">Email</label>
+                                    
+                                </div>
                             </div>
-                            <div class="form-floating mb-3">
-                                <input type="tel" name="phone" class="form-control" id="floatingInput" placeholder="Phone" value="<?= set_value('phone')?>">
-                                <label for="floatingInput">Phone</label>     
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                <select class="form-select" aria-label="Default select example" name="gender">
+                                    <option selected>Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                                   
+                                </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="tel" name="phone" class="form-control" id="floatingInput"  placeholder="name@email.com" value="<?= set_value('phone')?>">
+                                    <label for="floatingInput">Phone Number</label>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="date" name="dob" class="form-control" id="floatingInput" value="<?= set_value('dob')?>">
+                                    <label for="floatingInput">DOB</label>
+                                   
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                                <select class="form-select" aria-label="Default select example" name="department">
+                                    <option selected>Department</option>
+                                    <option value="IT">IT</option>
+                                    <option value="Finance">Finance</option>
+                                    
+                                </select>
+                                   
+                        </div>
 
                             <h4 class="lead fw-bold mb-3">Setting Passwords</h4>
 

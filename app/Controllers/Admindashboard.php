@@ -581,6 +581,9 @@ class Admindashboard extends BaseController
             'full_name' => 'required',
             'email' => 'required|valid_email',
             'phone' => 'required',
+            'dob' => 'required',
+            'gender' => 'required',
+            'department' => 'required',
             'password' => 'required|min_length[5]|max_length[20]',
             'confirm_password' => 'required|matches[password]'
         ];
@@ -595,6 +598,9 @@ class Admindashboard extends BaseController
                     'full_name' => $this->request->getPost('full_name', FILTER_SANITIZE_STRING),
                     'phone' => $this->request->getPost('phone', FILTER_SANITIZE_STRING),
                     'email' => $this->request->getPost('email', FILTER_SANITIZE_STRING),
+                    'gender' => $this->request->getPost('gender', FILTER_SANITIZE_STRING),
+                    'dob' => $this->request->getPost('dob', FILTER_SANITIZE_STRING),
+                    'department' => $this->request->getPost('department', FILTER_SANITIZE_STRING),
                     'password' => password_hash($this->request->getPost('password', FILTER_SANITIZE_STRING), PASSWORD_BCRYPT),
                     'uniid' => $uniid
                 ];

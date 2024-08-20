@@ -60,7 +60,6 @@ $page_session = \CodeIgniter\Config\Services::session();
 										<th>Phone Number</th>
 										<th>DOB</th>
 										<th>Department</th>
-										<th>Created On</th>
 										<th class="datatable-nosort">Action</th>
 									</tr>
 								</thead>
@@ -71,11 +70,10 @@ $page_session = \CodeIgniter\Config\Services::session();
 										<td class="table-plus"><?= $ad['id']?></td>
 										<td><?= $ad['full_name']?></td>
 										<td><?= $ad['email']?></td>
-										<td>Male</td>
-										<td>0740289746</td>
-										<td>kesho</td>
-										<td>IT</td>
-										<td>Leo</td>
+										<td><?= $ad['gender']?></td>
+										<td><?= $ad['phone']?></td>
+										<td><?= $ad['dob']?></td>
+										<td><?= $ad['department']?></td>
 										<td>
 											<div class="dropdown">
 												<a
