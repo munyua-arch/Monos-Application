@@ -148,6 +148,7 @@ class Admindashboard extends BaseController
 
         //define rules to validate form
        $data = [];
+       $data['departments'] = $this->departmentModel->findAll();
 
        $rules = [
             'first_name' => 'required',
@@ -576,7 +577,8 @@ class Admindashboard extends BaseController
         
 
         $data = [];
-
+        $data['departments'] = $this->departmentModel->findAll();
+ 
         $rules = [
             'full_name' => 'required',
             'email' => 'required|valid_email',

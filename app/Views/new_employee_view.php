@@ -140,9 +140,12 @@ $page_session = \CodeIgniter\Config\Services::session();
 
                         <div class="form-floating mb-3">
                                 <select class="form-select" aria-label="Default select example" name="department">
-                                    <option selected>Department</option>
-                                    <option value="IT">IT</option>
-                                    <option value="Finance">Finance</option>
+                                    <option selected>-- Choose Department --</option>
+                                    <?php if(count($departments)):?>
+                                        <?php foreach($departments as $dept):?>
+                                            <option value="<?= $dept['department']?>"><?= $dept['department']?></option>
+                                        <?php endforeach;?>
+                                    <?php endif;?>
                                     
                                 </select>
                                    
