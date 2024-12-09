@@ -5,7 +5,7 @@
     <div class="col-md-6 col-lg-5">
         <div class="login-box bg-white box-shadow border-radius-10">
             <div class="login-title">
-				<h2 class="text-center text-primary">Leave Management System</h2>
+				<h2 class="text-center text-primary">MONOS SYSTEM</h2>
 				<h4 class="text-center text-primary mt-3">
                     <a href="<?= base_url().'login'?>" class="btn btn-primary btn-block">
                         Go to Login

@@ -1,106 +1,95 @@
-<?php 
-
-$page_session = \CodeIgniter\Config\Services::session();
-?>
-
-<?= $this->extend('backend\admin-layouts'); ?>
+<?= $this->extend('layouts/base.php'); ?>
 <?= $this->section('content'); ?>
 
-<section>
+<div class="text-center m-3">
+    <h3>Business Directory | Affordable Subscriptions</h3>
+</div>
 
-                    <div class="min-height-200px">
-                        <div class="page-header">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="title">
-                                        <h4>Department Section</h4>
-                                    </div>
-                                    <nav aria-label="breadcrumb" role="navigation">
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item">
-                                                <a href="<?= base_url().'admindashboard/'?>">Home</a>
-                                            </li>
-                                            <li class="breadcrumb-item">
-                                                <a href="<?= base_url().'admindashboard/departments'?>">Departments</a>
-                                            </li>
-                                            <li class="breadcrumb-item active" aria-current="page">
-                                                New Department
-                                            </li>
-                                        </ol>
-                                    </nav>
-                                </div>
-                            </div>
-					</div>
+<div class="text-center">
+    <h5>Select a subscription plan and enter your M-Pesa phone number</h5>
+    <h6 class="mt-3">
+        Already Subscribed?
+        <a href="#">Login </a>
+    </h6>
+</div>
 
-    <!-- horizontal Basic Forms Start -->
-    <div class="pd-20 card-box mb-30">
-						<div class="clearfix">
-							<div class="pull-left">
-								<h4 class="text-blue h4">New Department</h4>
-								<p class="mb-30">Please fill the form below to add a new department</p>
-							</div>
-						</div>
+<?php if (isset($validation)): ?>
+    <div aria-live="polite" aria-atomic="true" class="position-relative" style="z-index: 1050;">
+        <div class="toast-container position-absolute top-0 end-0 p-1">
+            <!-- Display validation errors as toasts -->
+            <?php foreach ($validation->getErrors() as $error): ?>
+                <div class="toast align-items-center text-white bg-danger border-0 mb-2" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            <?= esc($error); ?>
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+<?php endif; ?>
 
-                        <!-- Display invalid form errors -->
-                       
-                                <?php if(isset($validation)):?>
-                                    <div class="alert alert-danger alert-dimissible fade show" role="alert">
-                                        <?= $validation->listErrors(); ?>
-                                        <button class="btn-close" type="button" data-bs-dismiss="alert" role="Close"></button>
-                                    </div>
-                                <?php endif;?>
-                            
-                        <!-- Display invalid form errors -->
+<!-- Monthly Subscription Form -->
+<?= form_open('/subscriptions/monthly'); ?>
+    <div class="card text-center mt-5 shadow" style="width: 50%; margin: 0 auto;">
+        <div class="card-header">
+            Subscribe to Our Business Directory
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Monthly Plan - KES 500</h5>
+            <p class="card-text">Get full access to all directory features for 30 days.</p>
+            <input type="tel" class="form-control mt-3" placeholder="Enter your phone number" name="monthly_sub">
+            <button type="submit" class="btn btn-primary mt-3 w-100">
+                Subscribe
+            </button>
+        </div>
+    </div>
+<?= form_close(); ?>
 
+<!-- Quarterly Subscription Form -->
+<?= form_open('/subscriptions/quarterly'); ?>
+    <div class="card text-center mt-5 shadow" style="width: 50%; margin: 0 auto;">
+        <div class="card-header">
+            Subscribe to Our Business Directory
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Quarterly Plan - KES 1,200</h5>
+            <p class="card-text">Enjoy unlimited access for 90 days.</p>
+            <input type="tel" class="form-control mt-3" placeholder="Enter your phone number" name="quarterly_sub">
+            <button type="submit" class="btn btn-primary mt-3 w-100">
+                Subscribe
+            </button>
+        </div>
+    </div>
+<?= form_close(); ?>
 
-                        <?php if($page_session->has('dept_success')): ?>
-                            <div class="alert alert-success alert-dimissible fade show" role="alert">
-                                <?= $page_session->get('dept_success') ?>
-                                <button class="btn-close" type="button" data-bs-dismiss="alert" role="Close"></button>
-                            </div>
-                        <?php endif;?>
+<!-- Annual Subscription Form -->
+<?= form_open('/subscriptions/annual'); ?>
+    <div class="card text-center mt-5 shadow" style="width: 50%; margin: 0 auto;">
+        <div class="card-header">
+            Subscribe to Our Business Directory
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Annual Plan - KES 4,000</h5>
+            <p class="card-text">Full access for an entire year at a discounted rate.</p>
+            <input type="tel" class="form-control mt-3" placeholder="Enter your phone number" name="annual_sub">
+            <button type="submit" class="btn btn-primary mt-3 w-100">
+                Subscribe
+            </button>
+        </div>
+    </div>
+<?= form_close(); ?>
 
-                        <?php if($page_session->has('dept_error')): ?>
-                            <div class="alert alert-danger alert-dimissible fade show" role="alert">
-                                <?= $page_session->get('dept_error') ?>
-                                <button class="btn-close" type="button" data-bs-dismiss="alert" role="Close"></button>
-                            </div>
-                        <?php endif;?>
-
-						<?= form_open();?>
-                            
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="department" class="form-control" id="floatingInput" placeholder="department" value="<?= set_value('department')?>">
-                                    <label for="floatingInput">Department</label>
-                                    
-                                </div>
-                          
-                            
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="shortform" class="form-control" id="floatingInput" placeholder="shortform" value="<?= set_value('shortform')?>">
-                                    <label for="floatingInput">Shortform</label>
-                                    
-                                </div>
-                            
-                            
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="HOD" class="form-control" id="floatingInput" placeholder="HOD" value="<?= set_value('HOD')?>">
-                                    <label for="floatingInput">Head Of Department</label>
-                                    
-                                </div>
-                          
-                                <div class="col-12">
-                                    <button type="submit" class="btn btn-primary">Create New Department</button>
-                                </div>
-						
-						<?= form_close();?>
-
-                        
-
-							</div>
-						</div>
-					</div>
-					<!-- horizontal Basic Forms End -->
-</section>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var toastElements = document.querySelectorAll('.toast');
+        toastElements.forEach(function (toastElement) {
+            var toast = new bootstrap.Toast(toastElement);
+            toast.show();
+        });
+    });
+</script>
 
 <?= $this->endSection(); ?>

@@ -92,8 +92,8 @@ $page_session = \CodeIgniter\Config\Services::session();
 															/>
 													</div>
 											<a href="<?= base_url().'login/'?>">
-											<span>I'm</span>
-											Employee
+											
+											Customer Login
 											</a>
 										</label>
 									</div>

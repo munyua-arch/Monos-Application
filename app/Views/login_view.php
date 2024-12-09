@@ -11,8 +11,8 @@ $page_session = \CodeIgniter\Config\Services::session();
         <div class="col-md-6 col-lg-5">
             <div class="login-box bg-white box-shadow border-radius-10">
                 <div class="login-title">
-					<h2 class="text-center text-primary">Leave Management System</h2>
-					<h4 class="text-center text-primary mt-3">Employee Login</h4>
+					<h2 class="text-center text-primary">MONOS APPLICATION</h2>
+					<h4 class="text-center text-primary mt-3">Customer Login</h4>
 				</div>
 
             <?php if(isset($validation)):?>
@@ -77,8 +77,8 @@ $page_session = \CodeIgniter\Config\Services::session();
 												/>
 											</div>
 											<a href="<?= base_url(). 'admin-login'?>">
-												<span>I'm</span>
-												<span class="text-primary fw-bold">Head Of Department</span>
+												
+												<span class="text-primary fw-bold">MONOS ADMIN</span>
 											</a>
 										</label>
 									</div>
